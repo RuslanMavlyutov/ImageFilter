@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3125CDDA21CA270300668376 /* AppDelegate.swift */; };
-		3125CDDD21CA270300668376 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3125CDDC21CA270300668376 /* ViewController.swift */; };
+		3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3125CDDC21CA270300668376 /* ImageViewController.swift */; };
 		3125CDE021CA270300668376 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDDE21CA270300668376 /* Main.storyboard */; };
 		3125CDE221CA270800668376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE121CA270800668376 /* Assets.xcassets */; };
 		3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE321CA270800668376 /* LaunchScreen.storyboard */; };
+		3125CDEE21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDED21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3125CDD721CA270300668376 /* ImageFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3125CDDA21CA270300668376 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3125CDDC21CA270300668376 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3125CDDC21CA270300668376 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		3125CDDF21CA270300668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3125CDE121CA270800668376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3125CDE421CA270800668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3125CDE621CA270800668376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3125CDED21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Abu_dhabi_skylines_2014.jpg; path = ../../../../Downloads/Abu_dhabi_skylines_2014.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +40,7 @@
 		3125CDCE21CA270300668376 = {
 			isa = PBXGroup;
 			children = (
+				3125CDEC21CA288800668376 /* Image */,
 				3125CDD921CA270300668376 /* ImageFilter */,
 				3125CDD821CA270300668376 /* Products */,
 			);
@@ -54,14 +57,30 @@
 		3125CDD921CA270300668376 /* ImageFilter */ = {
 			isa = PBXGroup;
 			children = (
-				3125CDDA21CA270300668376 /* AppDelegate.swift */,
-				3125CDDC21CA270300668376 /* ViewController.swift */,
+				3125CDDC21CA270300668376 /* ImageViewController.swift */,
+				3125CDEF21CA28F000668376 /* Supporting files */,
 				3125CDDE21CA270300668376 /* Main.storyboard */,
-				3125CDE121CA270800668376 /* Assets.xcassets */,
-				3125CDE321CA270800668376 /* LaunchScreen.storyboard */,
 				3125CDE621CA270800668376 /* Info.plist */,
 			);
 			path = ImageFilter;
+			sourceTree = "<group>";
+		};
+		3125CDEC21CA288800668376 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				3125CDED21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		3125CDEF21CA28F000668376 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				3125CDDA21CA270300668376 /* AppDelegate.swift */,
+				3125CDE321CA270800668376 /* LaunchScreen.storyboard */,
+				3125CDE121CA270800668376 /* Assets.xcassets */,
+			);
+			path = "Supporting files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,6 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3125CDEE21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg in Resources */,
 				3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */,
 				3125CDE221CA270800668376 /* Assets.xcassets in Resources */,
 				3125CDE021CA270300668376 /* Main.storyboard in Resources */,
@@ -135,7 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3125CDDD21CA270300668376 /* ViewController.swift in Sources */,
+				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
 				3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
