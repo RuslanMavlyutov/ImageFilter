@@ -9,7 +9,14 @@
 import UIKit
 import CoreImage
 
-class ViewController: UIViewController {
+final class ImageViewController: UIViewController {
+
+    struct FilterName {
+        static let  sepiaFilter = "CISepiaTone"
+        static let  photoEffectFilter = "CIPhotoEffectProcess"
+        static let  blurFilter = "CIGaussianBlur"
+        static let  noirFilter = "CIPhotoEffectNoir"
+    }
 
     struct Filter {
         let filterName: String
@@ -23,13 +30,12 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet private weak var imageView: UIImageView!
     private var originalImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         originalImage = imageView.image
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     private func applyFilterTo(image: UIImage, filterEffect: Filter) -> UIImage? {
@@ -61,28 +67,28 @@ class ViewController: UIViewController {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: "CISepiaTone", filterEffectValue: 0.90, filterEffectValueName: kCIInputIntensityKey))
+        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: FilterName.sepiaFilter, filterEffectValue: 0.90, filterEffectValueName: kCIInputIntensityKey))
     }
 
     @IBAction func applyPhotoTransferEffect(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: "CIPhotoEffectProcess", filterEffectValue: nil, filterEffectValueName: kCIInputIntensityKey))
+        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: FilterName.photoEffectFilter, filterEffectValue: nil, filterEffectValueName: kCIInputIntensityKey))
     }
 
     @IBAction func applyBlur(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: "CIGaussianBlur", filterEffectValue: 3.0, filterEffectValueName: kCIInputRadiusKey))
+        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: FilterName.blurFilter, filterEffectValue: 3.0, filterEffectValueName: kCIInputRadiusKey))
     }
 
     @IBAction func applyNoirEffect(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: "CIPhotoEffectNoir", filterEffectValue: nil, filterEffectValueName: nil))
+        imageView.image = applyFilterTo(image: image, filterEffect: Filter(filterName: FilterName.noirFilter, filterEffectValue: nil, filterEffectValueName: nil))
     }
 
     @IBAction func clearFilters(_ sender: Any) {
