@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreImage
 
 final class ImageViewController: UIViewController {
 
@@ -26,28 +25,40 @@ final class ImageViewController: UIViewController {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = filterModel?.sepia(image)
+        filterModel?.sepia(image, completion: { newImage in
+            guard let img = newImage else { return }
+            self.imageView.image = img
+        })
     }
 
     @IBAction func applyPhotoTransferEffect(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = filterModel?.photoEffectFilter(image)
+        filterModel?.photoEffectFilter(image, completion: { newImage in
+            guard let img = newImage else { return }
+            self.imageView.image = img
+        })
     }
 
     @IBAction func applyBlur(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = filterModel?.blur(image)
+        filterModel?.blur(image, completion: { newImage in
+            guard let img = newImage else { return }
+            self.imageView.image = img
+        })
     }
 
     @IBAction func applyNoirEffect(_ sender: Any) {
         guard let image = imageView.image else {
             return
         }
-        imageView.image = filterModel?.noir(image)
+        filterModel?.noir(image, completion: { newImage in
+            guard let img = newImage else { return }
+            self.imageView.image = img
+        })
     }
 
     @IBAction func clearFilters(_ sender: Any) {
