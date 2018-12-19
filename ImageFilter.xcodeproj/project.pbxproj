@@ -13,6 +13,7 @@
 		3125CDE221CA270800668376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE121CA270800668376 /* Assets.xcassets */; };
 		3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE321CA270800668376 /* LaunchScreen.storyboard */; };
 		3125CDEE21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDED21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg */; };
+		31706A4921CA50E900F3816C /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31706A4821CA50E900F3816C /* FilterModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		3125CDE421CA270800668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3125CDE621CA270800668376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3125CDED21CA28BF00668376 /* Abu_dhabi_skylines_2014.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Abu_dhabi_skylines_2014.jpg; path = ../../../../Downloads/Abu_dhabi_skylines_2014.jpg; sourceTree = "<group>"; };
+		31706A4821CA50E900F3816C /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +59,8 @@
 		3125CDD921CA270300668376 /* ImageFilter */ = {
 			isa = PBXGroup;
 			children = (
-				3125CDDC21CA270300668376 /* ImageViewController.swift */,
+				31706A4721CA50CB00F3816C /* Model */,
+				31706A4621CA4FDD00F3816C /* Controller */,
 				3125CDEF21CA28F000668376 /* Supporting files */,
 				3125CDDE21CA270300668376 /* Main.storyboard */,
 				3125CDE621CA270800668376 /* Info.plist */,
@@ -81,6 +84,22 @@
 				3125CDE121CA270800668376 /* Assets.xcassets */,
 			);
 			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		31706A4621CA4FDD00F3816C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3125CDDC21CA270300668376 /* ImageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		31706A4721CA50CB00F3816C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				31706A4821CA50E900F3816C /* FilterModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31706A4921CA50E900F3816C /* FilterModel.swift in Sources */,
 				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
 				3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */,
 			);
