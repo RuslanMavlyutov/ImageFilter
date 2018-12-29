@@ -7,21 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3104A15C21D4AF460088B359 /* CroppableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104A15B21D4AF460088B359 /* CroppableImageView.swift */; };
+		3104A15E21D4AFB50088B359 /* CornerpointClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104A15D21D4AFB50088B359 /* CornerpointClientProtocol.swift */; };
+		3104A16021D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104A15F21D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift */; };
+		3104A16221D4B0090088B359 /* CornerpointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3104A16121D4B0090088B359 /* CornerpointView.swift */; };
 		3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3125CDDA21CA270300668376 /* AppDelegate.swift */; };
 		3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3125CDDC21CA270300668376 /* ImageViewController.swift */; };
 		3125CDE021CA270300668376 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDDE21CA270300668376 /* Main.storyboard */; };
-		3125CDE221CA270800668376 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE121CA270800668376 /* Assets.xcassets */; };
+		3125CDE221CA270800668376 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE121CA270800668376 /* Images.xcassets */; };
 		3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE321CA270800668376 /* LaunchScreen.storyboard */; };
 		31706A4921CA50E900F3816C /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31706A4821CA50E900F3816C /* FilterModel.swift */; };
 		31706A4B21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3104A15B21D4AF460088B359 /* CroppableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppableImageView.swift; sourceTree = "<group>"; };
+		3104A15D21D4AFB50088B359 /* CornerpointClientProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerpointClientProtocol.swift; sourceTree = "<group>"; };
+		3104A15F21D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CroppableImageViewDelegateProtocol.swift; sourceTree = "<group>"; };
+		3104A16121D4B0090088B359 /* CornerpointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerpointView.swift; sourceTree = "<group>"; };
 		3125CDD721CA270300668376 /* ImageFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3125CDDA21CA270300668376 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3125CDDC21CA270300668376 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		3125CDDF21CA270300668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3125CDE121CA270800668376 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3125CDE121CA270800668376 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3125CDE421CA270800668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3125CDE621CA270800668376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31706A4821CA50E900F3816C /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
@@ -59,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				3125CDEC21CA288800668376 /* Image */,
+				318D514921D74C8B00FE2C48 /* CroppBuilder */,
 				31706A4721CA50CB00F3816C /* Model */,
 				31706A4621CA4FDD00F3816C /* Controller */,
 				3125CDEF21CA28F000668376 /* Supporting files */,
@@ -81,7 +90,7 @@
 			children = (
 				3125CDDA21CA270300668376 /* AppDelegate.swift */,
 				3125CDE321CA270800668376 /* LaunchScreen.storyboard */,
-				3125CDE121CA270800668376 /* Assets.xcassets */,
+				3125CDE121CA270800668376 /* Images.xcassets */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -100,6 +109,17 @@
 				31706A4821CA50E900F3816C /* FilterModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		318D514921D74C8B00FE2C48 /* CroppBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3104A16121D4B0090088B359 /* CornerpointView.swift */,
+				3104A15F21D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift */,
+				3104A15D21D4AFB50088B359 /* CornerpointClientProtocol.swift */,
+				3104A15B21D4AF460088B359 /* CroppableImageView.swift */,
+			);
+			path = CroppBuilder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,7 +182,7 @@
 			files = (
 				31706A4B21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg in Resources */,
 				3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */,
-				3125CDE221CA270800668376 /* Assets.xcassets in Resources */,
+				3125CDE221CA270800668376 /* Images.xcassets in Resources */,
 				3125CDE021CA270300668376 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,7 +195,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				31706A4921CA50E900F3816C /* FilterModel.swift in Sources */,
+				3104A15E21D4AFB50088B359 /* CornerpointClientProtocol.swift in Sources */,
+				3104A15C21D4AF460088B359 /* CroppableImageView.swift in Sources */,
 				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
+				3104A16221D4B0090088B359 /* CornerpointView.swift in Sources */,
+				3104A16021D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift in Sources */,
 				3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -2,16 +2,16 @@ import Foundation
 import UIKit
 import CoreImage
 
+struct FilterName {
+    static let  sepiaFilter = "CISepiaTone"
+    static let  photoEffectFilter = "CIPhotoEffectProcess"
+    static let  blurFilter = "CIGaussianBlur"
+    static let  noirFilter = "CIPhotoEffectNoir"
+}
+
 final class FilterModel {
 
     private let queue = DispatchQueue.global(qos: .userInitiated)
-
-    struct FilterName {
-        static let  sepiaFilter = "CISepiaTone"
-        static let  photoEffectFilter = "CIPhotoEffectProcess"
-        static let  blurFilter = "CIGaussianBlur"
-        static let  noirFilter = "CIPhotoEffectNoir"
-    }
 
     struct Filter {
         let filterName: String
@@ -83,5 +83,64 @@ final class FilterModel {
                                                                 filterEffectValueName: nil)) { newImage in
             completion(newImage)
         }
+    }
+}
+
+extension UIImage {
+    func imageFromRect(_ rect: CGRect) -> UIImage? {
+        if let cg = self.cgImage,
+            let subImage = cg.cropping(to: rect) {
+            return UIImage(cgImage: subImage)
+        }
+        return nil
+    }
+
+    func blurImage(withRadius radius: Double) -> UIImage? {
+        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
+        if let filter = CIFilter(name: FilterName.blurFilter) {
+            filter.setValue(inputImage, forKey: kCIInputImageKey)
+            filter.setValue((radius), forKey: kCIInputRadiusKey)
+            if let blurred = filter.outputImage {
+                return UIImage(ciImage: blurred)
+            }
+        }
+        return nil
+    }
+
+    func sepiaImage() -> UIImage? {
+        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
+        if let filter = CIFilter(name: FilterName.sepiaFilter) {
+            filter.setValue(inputImage, forKey: kCIInputImageKey)
+            filter.setValue(0.90, forKey: kCIInputIntensityKey)
+            if let sepiaImg = filter.outputImage {
+                return UIImage(ciImage: sepiaImg)
+            }
+        }
+        return nil
+    }
+
+    func drawImageInRect(inputImage: UIImage, inRect imageRect: CGRect) -> UIImage? {
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(in: CGRect(x:0.0, y:0.0, width:self.size.width, height:self.size.height))
+        inputImage.draw(in: imageRect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+
+    func applyBlurInRect(rect: CGRect, withRadius radius: Double) -> UIImage? {
+        if let subImage = self.imageFromRect(rect),
+            let blurredZone = subImage.blurImage(withRadius: radius) {
+            return self.drawImageInRect(inputImage: blurredZone, inRect: rect)
+        }
+        return nil
+    }
+
+    func applySepiaRect(rect: CGRect) -> UIImage? {
+        if let subImage = self.imageFromRect(rect),
+            let sepiaZone = subImage.sepiaImage() {
+            return self.drawImageInRect(inputImage: sepiaZone, inRect: rect)
+        }
+        return nil
     }
 }
