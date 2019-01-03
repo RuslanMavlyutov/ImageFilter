@@ -95,30 +95,6 @@ extension UIImage {
         return nil
     }
 
-    func blurImage(withRadius radius: Double) -> UIImage? {
-        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
-        if let filter = CIFilter(name: FilterName.blurFilter) {
-            filter.setValue(inputImage, forKey: kCIInputImageKey)
-            filter.setValue((radius), forKey: kCIInputRadiusKey)
-            if let blurred = filter.outputImage {
-                return UIImage(ciImage: blurred)
-            }
-        }
-        return nil
-    }
-
-    func sepiaImage() -> UIImage? {
-        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
-        if let filter = CIFilter(name: FilterName.sepiaFilter) {
-            filter.setValue(inputImage, forKey: kCIInputImageKey)
-            filter.setValue(0.90, forKey: kCIInputIntensityKey)
-            if let sepiaImg = filter.outputImage {
-                return UIImage(ciImage: sepiaImg)
-            }
-        }
-        return nil
-    }
-
     func drawImageInRect(inputImage: UIImage, inRect imageRect: CGRect) -> UIImage? {
         UIGraphicsBeginImageContext(self.size)
         self.draw(in: CGRect(x:0.0, y:0.0, width:self.size.width, height:self.size.height))
@@ -128,18 +104,42 @@ extension UIImage {
         return newImage
     }
 
-    func applyBlurInRect(rect: CGRect, withRadius radius: Double) -> UIImage? {
-        if let subImage = self.imageFromRect(rect),
-            let blurredZone = subImage.blurImage(withRadius: radius) {
-            return self.drawImageInRect(inputImage: blurredZone, inRect: rect)
+    func filterImage(filterEffect: ImageFilter) -> UIImage? {
+        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
+
+        var nameFilter: String
+        var key = String()
+        switch filterEffect {
+        case .blur:
+            nameFilter = FilterName.blurFilter
+            key = kCIInputRadiusKey
+        case .sepia:
+            nameFilter = FilterName.sepiaFilter
+            key = kCIInputIntensityKey
+        case .photoEffect:
+            nameFilter = FilterName.photoEffectFilter
+        case .noir:
+            nameFilter = FilterName.noirFilter
+        }
+
+        if let filter = CIFilter(name: nameFilter) {
+            filter.setValue(inputImage, forKey: kCIInputImageKey)
+            if filterEffect == .blur {
+                filter.setValue(6.0, forKey: key)
+            } else if filterEffect == .sepia {
+                filter.setValue(0.90, forKey: key)
+            }
+            if let effectImg = filter.outputImage {
+                return UIImage(ciImage: effectImg)
+            }
         }
         return nil
     }
 
-    func applySepiaRect(rect: CGRect) -> UIImage? {
+    func applyFilterRect(filter: ImageFilter, rect: CGRect) -> UIImage? {
         if let subImage = self.imageFromRect(rect),
-            let sepiaZone = subImage.sepiaImage() {
-            return self.drawImageInRect(inputImage: sepiaZone, inRect: rect)
+            let noirZone = subImage.filterImage(filterEffect: filter) {
+            return self.drawImageInRect(inputImage: noirZone, inRect: rect)
         }
         return nil
     }

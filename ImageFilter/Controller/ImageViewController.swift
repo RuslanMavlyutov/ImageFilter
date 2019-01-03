@@ -9,6 +9,13 @@
 import UIKit
 import Photos
 
+enum ImageFilter {
+    case sepia
+    case blur
+    case photoEffect
+    case noir
+}
+
 final class ImageViewController:
     UIViewController,
     CroppableImageViewDelegateProtocol,
@@ -90,6 +97,7 @@ final class ImageViewController:
 
     private var originalImage: UIImage?
     private var filterModel: FilterModel?
+    private var selectedEffect = ImageFilter.sepia
 
     override func viewDidAppear(_ animated: Bool) {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -111,9 +119,7 @@ final class ImageViewController:
     {
         guard var targetZone = cropView.selectedArea() else { return }
         selectedAreaInCurrentDevice(for: &targetZone)
-        if let  resultImage = cropView.imageToCrop?.applySepiaRect(rect: targetZone) {
-            cropView.imageToCrop = resultImage
-        }
+        applySelectedEffect(area: targetZone)
     }
 
     func selectedAreaInCurrentDevice(for area: inout CGRect)
@@ -124,6 +130,72 @@ final class ImageViewController:
             area.origin.y = area.origin.y * xScale
             area.size.width = area.size.width * xScale
             area.size.height = area.size.height * xScale
+        }
+    }
+
+    @IBAction func handleSelectEffectButton(_ sender: UIButton) {
+        let anActionSheet =  UIAlertController(title: "Choose Filter Image",
+                                               message: nil,
+                                               preferredStyle: UIAlertControllerStyle.actionSheet)
+
+        let sepiaAction = UIAlertAction(
+            title:"Sepia",
+            style: UIAlertActionStyle.default,
+            handler:
+            {
+                (alert: UIAlertAction)  in
+                print("Choosen sepia")
+                self.selectedEffect = ImageFilter.sepia
+        }
+        )
+        let blurAction = UIAlertAction(
+            title:"Blur",
+            style: UIAlertActionStyle.default,
+            handler:
+            {
+                (alert: UIAlertAction)  in
+                print("Choosen blur")
+                self.selectedEffect = ImageFilter.blur
+        }
+        )
+        let photoEffectAction = UIAlertAction(
+            title:"Photo Effect",
+            style: UIAlertActionStyle.default,
+            handler:
+            {
+                (alert: UIAlertAction)  in
+                print("Choosen photoEffect")
+                self.selectedEffect = ImageFilter.photoEffect
+        }
+        )
+        let noirAction = UIAlertAction(
+            title:"Noir",
+            style: UIAlertActionStyle.default,
+            handler:
+            {
+                (alert: UIAlertAction)  in
+                print("Choosen noir")
+                self.selectedEffect = ImageFilter.noir
+        }
+        )
+        let cancelAction = UIAlertAction(
+            title:"Cancel",
+            style: UIAlertActionStyle.cancel,
+            handler:
+            {
+                (alert: UIAlertAction)  in
+                print("User chose cancel button")
+        }
+        )
+        anActionSheet.addAction(sepiaAction)
+        anActionSheet.addAction(blurAction)
+        anActionSheet.addAction(photoEffectAction)
+        anActionSheet.addAction(noirAction)
+        anActionSheet.addAction(cancelAction)
+
+        self.present(anActionSheet, animated: true)
+        {
+            //println("In action sheet completion block")
         }
     }
 
@@ -206,6 +278,13 @@ final class ImageViewController:
         }
     }
 
+    func applySelectedEffect(area: CGRect)
+    {
+        if let  resultImage = cropView.imageToCrop?.applyFilterRect(filter: selectedEffect, rect: area) {
+            cropView.imageToCrop = resultImage
+        }
+    }
+
     @IBAction func applySepia(_ sender: Any) {
         guard let image = imageView.image else {
             return
@@ -251,10 +330,10 @@ final class ImageViewController:
     }
 
     @IBAction func partImage(_ sender: Any) {
-        let targetZone = CGRect(x: -50, y: (self.imageView.image?.size.height)! - 120, width: (self.imageView.image?.size.width)! + 100, height: 220)
-        if let  resultImage = self.imageView.image?.applyBlurInRect(rect: targetZone, withRadius: 6.0) {
-            imageView.image = resultImage
-        }
+//        let targetZone = CGRect(x: -50, y: (self.imageView.image?.size.height)! - 120, width: (self.imageView.image?.size.width)! + 100, height: 220)
+//        if let  resultImage = self.imageView.image?.applyBlurInRect(rect: targetZone, withRadius: 6.0) {
+//            imageView.image = resultImage
+//        }
     }
 
     func haveValidCropRect(_ haveValidCropRect:Bool)
