@@ -283,13 +283,13 @@ final class ImageViewController:
 
     func applySelectedEffect(area: CGRect)
     {
-        if let  resultImage = cropView.imageToCrop?.applyFilterRect(filter: selectedEffect, rect: area) {
-            if let img = cropView.imageToCrop {
-                filteredImage.append(img)
-                cancelFilterButton.isEnabled = true
+        cropView.imageToCrop?.applyFilterRect(filter: selectedEffect, rect: area, completion: { [weak self] resultImage in
+            if let img = self?.cropView.imageToCrop {
+                self?.filteredImage.append(img)
+                self?.cancelFilterButton.isEnabled = true
             }
-            cropView.imageToCrop = resultImage
-        }
+            self?.cropView.imageToCrop = resultImage
+        })
     }
 
     @IBAction func applySepia(_ sender: Any) {

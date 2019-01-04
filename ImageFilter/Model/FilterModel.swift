@@ -136,11 +136,16 @@ extension UIImage {
         return nil
     }
 
-    func applyFilterRect(filter: ImageFilter, rect: CGRect) -> UIImage? {
-        if let subImage = self.imageFromRect(rect),
-            let noirZone = subImage.filterImage(filterEffect: filter) {
-            return self.drawImageInRect(inputImage: noirZone, inRect: rect)
+    func applyFilterRect(filter: ImageFilter, rect: CGRect, completion: @escaping (UIImage?) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] () -> Void in
+            if let subImage = self?.imageFromRect(rect),
+                let filteredZone = subImage.filterImage(filterEffect: filter) {
+                if let img = self?.drawImageInRect(inputImage: filteredZone, inRect: rect) {
+                    DispatchQueue.main.async { () -> Void in
+                        completion(img)
+                    }
+                }
+            }
         }
-        return nil
     }
 }
