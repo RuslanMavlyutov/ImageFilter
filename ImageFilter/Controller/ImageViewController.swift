@@ -91,6 +91,7 @@ final class ImageViewController:
     }
 
     @IBOutlet weak var cropButton: UIButton!
+    @IBOutlet weak var cancelFilterButton: UIBarButtonItem!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet weak var cropView: CroppableImageView!
@@ -98,6 +99,7 @@ final class ImageViewController:
     private var originalImage: UIImage?
     private var filterModel: FilterModel?
     private var selectedEffect = ImageFilter.sepia
+    private var filteredImage: [UIImage] = []
 
     override func viewDidAppear(_ animated: Bool) {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -111,6 +113,7 @@ final class ImageViewController:
     override func viewDidLoad() {
         super.viewDidLoad()
 //        originalImage = imageView.image
+        cancelFilterButton.isEnabled = false
         originalImage = cropView.imageToCrop
         filterModel = FilterModel()
     }
@@ -281,6 +284,10 @@ final class ImageViewController:
     func applySelectedEffect(area: CGRect)
     {
         if let  resultImage = cropView.imageToCrop?.applyFilterRect(filter: selectedEffect, rect: area) {
+            if let img = cropView.imageToCrop {
+                filteredImage.append(img)
+                cancelFilterButton.isEnabled = true
+            }
             cropView.imageToCrop = resultImage
         }
     }
@@ -334,6 +341,42 @@ final class ImageViewController:
 //        if let  resultImage = self.imageView.image?.applyBlurInRect(rect: targetZone, withRadius: 6.0) {
 //            imageView.image = resultImage
 //        }
+    }
+
+    @IBAction func saveImage(_ sender: Any) {
+        guard let img = cropView.imageToCrop else { return }
+
+        let alert = UIAlertController(title: "ImageFilter", message: "Your image has been saved to Photo Library", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            self.saveImageToCameraRoll(img)
+            NSLog("The \"OK\" allert occured.")
+        }))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("Canceled.")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    func saveImageToCameraRoll(_ image: UIImage) {
+        PHPhotoLibrary.shared().performChanges({
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        }, completionHandler: { success, error in
+            if success {
+                // Saved successfully!
+            } else if let error = error {
+                print("Save failed with error " + String(describing: error))
+            } else {
+            }
+        })
+    }
+
+    @IBAction func cancelPreviousFilter(_ sender: UIBarButtonItem) {
+        cropView.imageToCrop = filteredImage.removeLast()
+        if filteredImage.isEmpty {
+            cancelFilterButton.isEnabled = false
+        } else {
+            cancelFilterButton.isEnabled = true
+        }
     }
 
     func haveValidCropRect(_ haveValidCropRect:Bool)

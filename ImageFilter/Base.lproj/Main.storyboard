@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -225,8 +226,23 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="5Zz-P0-H5k"/>
+                    <navigationItem key="navigationItem" id="5Zz-P0-H5k">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Save Image" id="5l1-tJ-PfN">
+                                <connections>
+                                    <action selector="saveImage:" destination="bbS-0U-pKM" id="mcy-Wd-4VH"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="undo" id="mpM-hW-IzU">
+                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="cancelPreviousFilter:" destination="bbS-0U-pKM" id="6qe-yf-uyB"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
                         <outlet property="cropButton" destination="cgi-Rv-zIl" id="gGK-uZ-BI1"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
                         <outlet property="whiteView" destination="2I9-ib-9Vz" id="UBq-8Z-XIh"/>
