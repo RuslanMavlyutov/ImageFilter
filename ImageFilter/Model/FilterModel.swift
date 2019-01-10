@@ -105,34 +105,34 @@ extension UIImage {
     }
 
     func filterImage(filterEffect: ImageFilter) -> UIImage? {
-        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
-
-        var nameFilter: String
-        var key = String()
-        switch filterEffect {
-        case .blur:
-            nameFilter = FilterName.blurFilter
-            key = kCIInputRadiusKey
-        case .sepia:
-            nameFilter = FilterName.sepiaFilter
-            key = kCIInputIntensityKey
-        case .photoEffect:
-            nameFilter = FilterName.photoEffectFilter
-        case .noir:
-            nameFilter = FilterName.noirFilter
-        }
-
-        if let filter = CIFilter(name: nameFilter) {
-            filter.setValue(inputImage, forKey: kCIInputImageKey)
-            if filterEffect == .blur {
-                filter.setValue(6.0, forKey: key)
-            } else if filterEffect == .sepia {
-                filter.setValue(0.90, forKey: key)
-            }
-            if let effectImg = filter.outputImage {
-                return UIImage(ciImage: effectImg)
-            }
-        }
+//        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
+//
+//        var nameFilter: String
+//        var key = String()
+//        switch filterEffect {
+//        case .blur:
+//            nameFilter = FilterName.blurFilter
+//            key = kCIInputRadiusKey
+//        case .sepia:
+//            nameFilter = FilterName.sepiaFilter
+//            key = kCIInputIntensityKey
+//        case .photoEffect:
+//            nameFilter = FilterName.photoEffectFilter
+//        case .noir:
+//            nameFilter = FilterName.noirFilter
+//        }
+//
+//        if let filter = CIFilter(name: nameFilter) {
+//            filter.setValue(inputImage, forKey: kCIInputImageKey)
+//            if filterEffect == .blur {
+//                filter.setValue(6.0, forKey: key)
+//            } else if filterEffect == .sepia {
+//                filter.setValue(0.90, forKey: key)
+//            }
+//            if let effectImg = filter.outputImage {
+//                return UIImage(ciImage: effectImg)
+//            }
+//        }
         return nil
     }
 

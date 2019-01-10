@@ -18,6 +18,7 @@
 		3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE321CA270800668376 /* LaunchScreen.storyboard */; };
 		31706A4921CA50E900F3816C /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31706A4821CA50E900F3816C /* FilterModel.swift */; };
 		31706A4B21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */; };
+		318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D514B21E5C72A00FE2C48 /* ImageEditor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3125CDE621CA270800668376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31706A4821CA50E900F3816C /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Abu_dhabi_skylines_2014.jpg; sourceTree = "<group>"; };
+		318D514B21E5C72A00FE2C48 /* ImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				31706A4821CA50E900F3816C /* FilterModel.swift */,
+				318D514B21E5C72A00FE2C48 /* ImageEditor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
 				3104A16221D4B0090088B359 /* CornerpointView.swift in Sources */,
 				3104A16021D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift in Sources */,
+				318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */,
 				3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

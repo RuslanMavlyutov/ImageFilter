@@ -9,13 +9,6 @@
 import UIKit
 import Photos
 
-enum ImageFilter {
-    case sepia
-    case blur
-    case photoEffect
-    case noir
-}
-
 final class ImageViewController:
     UIViewController,
     CroppableImageViewDelegateProtocol,
@@ -98,8 +91,9 @@ final class ImageViewController:
 
     private var originalImage: UIImage?
     private var filterModel: FilterModel?
-    private var selectedEffect = ImageFilter.sepia
+//    private var selectedEffect = ImageFilter.sepia
     private var filteredImage: [UIImage] = []
+    private var imageEditor = ImageEditor()
 
     override func viewDidAppear(_ animated: Bool) {
         let status = PHPhotoLibrary.authorizationStatus()
@@ -116,6 +110,7 @@ final class ImageViewController:
         cancelFilterButton.isEnabled = false
         originalImage = cropView.imageToCrop
         filterModel = FilterModel()
+        imageEditor.delegate = self
     }
 
     @IBAction func handleCropButton(_ sender: UIButton)
@@ -141,61 +136,18 @@ final class ImageViewController:
                                                message: nil,
                                                preferredStyle: UIAlertControllerStyle.actionSheet)
 
-        let sepiaAction = UIAlertAction(
-            title:"Sepia",
-            style: UIAlertActionStyle.default,
-            handler:
-            {
-                (alert: UIAlertAction)  in
-                print("Choosen sepia")
-                self.selectedEffect = ImageFilter.sepia
+        for filter in imageEditor.filters {
+            let action = UIAlertAction(title: filter.name,
+                                       style: UIAlertActionStyle.default,
+                                       handler:
+                {
+                    (alert: UIAlertAction)  in
+                    print(filter.name)
+                    self.imageEditor.selectedFilter = filter
+            }
+            )
+            anActionSheet.addAction(action)
         }
-        )
-        let blurAction = UIAlertAction(
-            title:"Blur",
-            style: UIAlertActionStyle.default,
-            handler:
-            {
-                (alert: UIAlertAction)  in
-                print("Choosen blur")
-                self.selectedEffect = ImageFilter.blur
-        }
-        )
-        let photoEffectAction = UIAlertAction(
-            title:"Photo Effect",
-            style: UIAlertActionStyle.default,
-            handler:
-            {
-                (alert: UIAlertAction)  in
-                print("Choosen photoEffect")
-                self.selectedEffect = ImageFilter.photoEffect
-        }
-        )
-        let noirAction = UIAlertAction(
-            title:"Noir",
-            style: UIAlertActionStyle.default,
-            handler:
-            {
-                (alert: UIAlertAction)  in
-                print("Choosen noir")
-                self.selectedEffect = ImageFilter.noir
-        }
-        )
-        let cancelAction = UIAlertAction(
-            title:"Cancel",
-            style: UIAlertActionStyle.cancel,
-            handler:
-            {
-                (alert: UIAlertAction)  in
-                print("User chose cancel button")
-        }
-        )
-        anActionSheet.addAction(sepiaAction)
-        anActionSheet.addAction(blurAction)
-        anActionSheet.addAction(photoEffectAction)
-        anActionSheet.addAction(noirAction)
-        anActionSheet.addAction(cancelAction)
-
         self.present(anActionSheet, animated: true)
         {
             //println("In action sheet completion block")
@@ -283,13 +235,9 @@ final class ImageViewController:
 
     func applySelectedEffect(area: CGRect)
     {
-        cropView.imageToCrop?.applyFilterRect(filter: selectedEffect, rect: area, completion: { [weak self] resultImage in
-            if let img = self?.cropView.imageToCrop {
-                self?.filteredImage.append(img)
-                self?.cancelFilterButton.isEnabled = true
-            }
-            self?.cropView.imageToCrop = resultImage
-        })
+        imageEditor.editingImage = cropView.imageToCrop
+//        imageEditor.selectedFilter = imageEditor.filters[0]
+        imageEditor.applySelectedFilter(in: area)
     }
 
     @IBAction func applySepia(_ sender: Any) {
@@ -402,6 +350,13 @@ final class ImageViewController:
     {
         print("In \(#function)")
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ImageViewController: ImageEditorDelegate {
+    func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage) {
+        print("delegate")
+        cropView.imageToCrop = image
     }
 }
 
