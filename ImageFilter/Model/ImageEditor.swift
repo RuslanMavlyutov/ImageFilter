@@ -17,46 +17,38 @@ struct FilterShortNames {
 
 final class SepiaImageFilter: ImageFilter {
     func apply(to image: UIImage, in rect: CGRect?, completion: @escaping (UIImage?) -> Void) {
-        if let subImage = image.imageFromRect(rect!) {
-            let inputImage = UIKit.CIImage(cgImage: subImage.cgImage!)
-            var filteredZone = UIImage()
-            if let filter = CIFilter(name: FilterName.sepiaFilter) {
-                filter.setValue(inputImage, forKey: kCIInputImageKey)
-                filter.setValue(0.90, forKey: kCIInputIntensityKey)
-                if let effectImg = filter.outputImage {
-                    filteredZone = UIImage(ciImage: effectImg)
-                }
-            }
-            if let img = image.drawImageInRect(inputImage: filteredZone, inRect: rect!) {
-                completion(img)
-            }
-        } else {
-            completion(nil)
+        image.applyFilterRect(filter: FilterName.sepiaFilter, rect: rect) { img in
+            completion(img)
         }
     }
-    var name: String = FilterShortNames.sepia
+    var name = FilterShortNames.sepia
 }
 
 final class BlurImageFilter: ImageFilter {
     func apply(to image: UIImage, in rect: CGRect?, completion: @escaping (UIImage?) -> Void) {
-        if let subImage = image.imageFromRect(rect!) {
-            let inputImage = UIKit.CIImage(cgImage: subImage.cgImage!)
-            var filteredZone = UIImage()
-            if let filter = CIFilter(name: FilterName.blurFilter) {
-                filter.setValue(inputImage, forKey: kCIInputImageKey)
-                filter.setValue(6.0, forKey: kCIInputRadiusKey)
-                if let effectImg = filter.outputImage {
-                    filteredZone = UIImage(ciImage: effectImg)
-                }
-            }
-            if let img = image.drawImageInRect(inputImage: filteredZone, inRect: rect!) {
-                completion(img)
-            }
-        } else {
-            completion(nil)
+        image.applyFilterRect(filter: FilterName.blurFilter, rect: rect) { img in
+            completion(img)
         }
     }
     var name: String = FilterShortNames.blur
+}
+
+final class PhotoEffectImageFilter: ImageFilter {
+    func apply(to image: UIImage, in rect: CGRect?, completion: @escaping (UIImage?) -> Void) {
+        image.applyFilterRect(filter: FilterName.photoEffectFilter, rect: rect) { img in
+            completion(img)
+        }
+    }
+    var name: String = FilterShortNames.photoEffect
+}
+
+final class NoirImageFilter: ImageFilter {
+    func apply(to image: UIImage, in rect: CGRect?, completion: @escaping (UIImage?) -> Void) {
+        image.applyFilterRect(filter: FilterName.noirFilter, rect: rect) { img in
+            completion(img)
+        }
+    }
+    var name: String = FilterShortNames.noir
 }
 
 protocol ImageEditorDelegate {
@@ -66,21 +58,19 @@ protocol ImageEditorDelegate {
 final class ImageEditor {
     let filters = [
         SepiaImageFilter(),
-        BlurImageFilter()
+        BlurImageFilter(),
+        PhotoEffectImageFilter(),
+        NoirImageFilter()
         ] as [ImageFilter]
     
     var selectedFilter: ImageFilter?
     var delegate: ImageEditorDelegate?
     var editingImage: UIImage?
     
-    func applySelectedFilter(in rect: CGRect) {
+    func applySelectedFilter(in rect: CGRect?) {
         selectedFilter?.apply(to: editingImage!, in: rect, completion: { img in
             self.editingImage = img
             self.delegate?.imageEditor(self, didChangeImage: self.editingImage!)
         })
     }
 }
-
-//protocol ImageFilterDelegate {
-//    func editedImage() -> UIImage
-//}

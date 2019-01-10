@@ -3,10 +3,10 @@ import UIKit
 import CoreImage
 
 struct FilterName {
-    static let  sepiaFilter = "CISepiaTone"
-    static let  photoEffectFilter = "CIPhotoEffectProcess"
-    static let  blurFilter = "CIGaussianBlur"
-    static let  noirFilter = "CIPhotoEffectNoir"
+    static let sepiaFilter = "CISepiaTone"
+    static let photoEffectFilter = "CIPhotoEffectProcess"
+    static let blurFilter = "CIGaussianBlur"
+    static let noirFilter = "CIPhotoEffectNoir"
 }
 
 final class FilterModel {
@@ -104,45 +104,40 @@ extension UIImage {
         return newImage
     }
 
-    func filterImage(filterEffect: ImageFilter) -> UIImage? {
-//        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
-//
-//        var nameFilter: String
-//        var key = String()
-//        switch filterEffect {
-//        case .blur:
-//            nameFilter = FilterName.blurFilter
-//            key = kCIInputRadiusKey
-//        case .sepia:
-//            nameFilter = FilterName.sepiaFilter
-//            key = kCIInputIntensityKey
-//        case .photoEffect:
-//            nameFilter = FilterName.photoEffectFilter
-//        case .noir:
-//            nameFilter = FilterName.noirFilter
-//        }
-//
-//        if let filter = CIFilter(name: nameFilter) {
-//            filter.setValue(inputImage, forKey: kCIInputImageKey)
-//            if filterEffect == .blur {
-//                filter.setValue(6.0, forKey: key)
-//            } else if filterEffect == .sepia {
-//                filter.setValue(0.90, forKey: key)
-//            }
-//            if let effectImg = filter.outputImage {
-//                return UIImage(ciImage: effectImg)
-//            }
-//        }
+    func filterImage(filterEffect: String) -> UIImage? {
+        let inputImage = UIKit.CIImage(cgImage: self.cgImage!)
+        if let filter = CIFilter(name: filterEffect) {
+            filter.setValue(inputImage, forKey: kCIInputImageKey)
+            if filterEffect == FilterName.blurFilter {
+                filter.setValue(6.0, forKey: kCIInputRadiusKey)
+            } else if filterEffect == FilterName.sepiaFilter {
+                filter.setValue(0.90, forKey: kCIInputIntensityKey)
+            }
+            if let effectImg = filter.outputImage {
+                return UIImage(ciImage: effectImg)
+            }
+        }
         return nil
     }
 
-    func applyFilterRect(filter: ImageFilter, rect: CGRect, completion: @escaping (UIImage?) -> Void) {
+    func applyFilterRect(filter: String, rect: CGRect?, completion: @escaping (UIImage?) -> Void) {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] () -> Void in
-            if let subImage = self?.imageFromRect(rect),
-                let filteredZone = subImage.filterImage(filterEffect: filter) {
-                if let img = self?.drawImageInRect(inputImage: filteredZone, inRect: rect) {
-                    DispatchQueue.main.async { () -> Void in
-                        completion(img)
+            if let area = rect {
+                if let subImage = self?.imageFromRect(area),
+                    let filteredZone = subImage.filterImage(filterEffect: filter) {
+                    if let img = self?.drawImageInRect(inputImage: filteredZone, inRect: area) {
+                        DispatchQueue.main.async { () -> Void in
+                            completion(img)
+                        }
+                    }
+                }
+            } else {
+                if let img = self?.filterImage(filterEffect: filter) {
+                    let area = CGRect(x:0.0, y:0.0, width:img.size.width, height:img.size.height)
+                    if let img = self?.drawImageInRect(inputImage: img, inRect: area) {
+                        DispatchQueue.main.async { () -> Void in
+                            completion(img)
+                        }
                     }
                 }
             }

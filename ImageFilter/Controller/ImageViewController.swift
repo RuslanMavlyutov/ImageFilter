@@ -115,7 +115,10 @@ final class ImageViewController:
 
     @IBAction func handleCropButton(_ sender: UIButton)
     {
-        guard var targetZone = cropView.selectedArea() else { return }
+        guard var targetZone = cropView.selectedArea() else {
+            applySelectedEffect(area: nil)
+            return
+        }
         selectedAreaInCurrentDevice(for: &targetZone)
         applySelectedEffect(area: targetZone)
     }
@@ -233,7 +236,7 @@ final class ImageViewController:
         }
     }
 
-    func applySelectedEffect(area: CGRect)
+    func applySelectedEffect(area: CGRect?)
     {
         imageEditor.editingImage = cropView.imageToCrop
 //        imageEditor.selectedFilter = imageEditor.filters[0]
@@ -329,8 +332,8 @@ final class ImageViewController:
 
     func haveValidCropRect(_ haveValidCropRect:Bool)
     {
-        //println("In haveValidCropRect. Value = \(haveValidCropRect)")
-        cropButton.isEnabled = haveValidCropRect
+        print("In haveValidCropRect. Value = \(haveValidCropRect)")
+//        cropButton.isEnabled = haveValidCropRect
     }
 
     func imagePickerController(
