@@ -11,103 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Image View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ImageViewController" customModule="ImageFilter" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Abu_dhabi_skylines_2014.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="KoT-1X-DRb">
-                                <rect key="frame" x="0.0" y="20" width="375" height="281"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwv-pU-Pft">
-                                <rect key="frame" x="168" y="318" width="39" height="30"/>
-                                <state key="normal" title="Sepia"/>
-                                <connections>
-                                    <action selector="applySepia:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zlu-r4-pp8"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1M-aC-HHW">
-                                <rect key="frame" x="172" y="356" width="30" height="30"/>
-                                <state key="normal" title="Blur"/>
-                                <connections>
-                                    <action selector="applyBlur:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4kT-Wc-1Hw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pps-U4-zGo">
-                                <rect key="frame" x="172" y="394" width="30" height="30"/>
-                                <state key="normal" title="Noir"/>
-                                <connections>
-                                    <action selector="applyNoirEffect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Ad-CH-dCu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bOq-8Y-n1d">
-                                <rect key="frame" x="137" y="424" width="100" height="30"/>
-                                <state key="normal" title="Process Effect"/>
-                                <connections>
-                                    <action selector="applyPhotoTransferEffect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7sG-om-v6j"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRE-jm-LI3">
-                                <rect key="frame" x="145" y="454" width="85" height="30"/>
-                                <state key="normal" title="Reset Filters"/>
-                                <connections>
-                                    <action selector="clearFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GfR-0C-C9M"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PtC-VM-ydo">
-                                <rect key="frame" x="151" y="492" width="74" height="30"/>
-                                <state key="normal" title="Part image"/>
-                                <connections>
-                                    <action selector="clearFilters:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z2q-IO-saR"/>
-                                    <action selector="partImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="IDJ-bR-4vh"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bOq-8Y-n1d" secondAttribute="trailing" constant="138" id="1GN-q3-otD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pps-U4-zGo" secondAttribute="trailing" constant="173" id="3ej-Kx-geT"/>
-                            <constraint firstItem="YRE-jm-LI3" firstAttribute="top" secondItem="bOq-8Y-n1d" secondAttribute="bottom" id="55h-CZ-XH3"/>
-                            <constraint firstItem="bOq-8Y-n1d" firstAttribute="top" secondItem="pps-U4-zGo" secondAttribute="bottom" id="77Z-59-DDu"/>
-                            <constraint firstItem="bOq-8Y-n1d" firstAttribute="top" secondItem="pps-U4-zGo" secondAttribute="bottom" id="AgN-qX-lgr"/>
-                            <constraint firstItem="YRE-jm-LI3" firstAttribute="top" secondItem="bOq-8Y-n1d" secondAttribute="bottom" id="Ao7-cB-3eQ"/>
-                            <constraint firstItem="fwv-pU-Pft" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="168" id="BPW-cH-yFd"/>
-                            <constraint firstItem="pps-U4-zGo" firstAttribute="top" secondItem="F1M-aC-HHW" secondAttribute="bottom" constant="8" id="KC7-qK-9tt"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="KoT-1X-DRb" secondAttribute="bottom" constant="366" id="OqC-EP-I6v"/>
-                            <constraint firstItem="pps-U4-zGo" firstAttribute="top" secondItem="F1M-aC-HHW" secondAttribute="bottom" constant="8" id="ScA-0u-chW"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YRE-jm-LI3" secondAttribute="bottom" constant="183" id="VDQ-M1-uz3"/>
-                            <constraint firstItem="F1M-aC-HHW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="172" id="XaF-TW-WNM"/>
-                            <constraint firstItem="pps-U4-zGo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="172" id="Znj-14-BDL"/>
-                            <constraint firstItem="fwv-pU-Pft" firstAttribute="top" secondItem="KoT-1X-DRb" secondAttribute="bottom" constant="17" id="e1j-1n-vUe"/>
-                            <constraint firstItem="YRE-jm-LI3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="145" id="em7-Wm-aFm"/>
-                            <constraint firstItem="F1M-aC-HHW" firstAttribute="top" secondItem="fwv-pU-Pft" secondAttribute="bottom" constant="8" id="hgM-dw-uD2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwv-pU-Pft" secondAttribute="trailing" constant="168" id="i1I-V5-BuI"/>
-                            <constraint firstItem="bOq-8Y-n1d" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="137" id="jCa-tR-Bic"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PtC-VM-ydo" secondAttribute="bottom" constant="145" id="jvy-gI-dsA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YRE-jm-LI3" secondAttribute="trailing" constant="145" id="lIg-8Z-vtA"/>
-                            <constraint firstItem="KoT-1X-DRb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="myE-gz-J5w"/>
-                            <constraint firstItem="PtC-VM-ydo" firstAttribute="top" secondItem="YRE-jm-LI3" secondAttribute="bottom" constant="8" id="p4A-t8-x0Y"/>
-                            <constraint firstItem="PtC-VM-ydo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="151" id="rRX-N5-edg"/>
-                            <constraint firstItem="KoT-1X-DRb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="s8b-6q-IUx"/>
-                            <constraint firstItem="KoT-1X-DRb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tQ8-Je-4PS"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PtC-VM-ydo" secondAttribute="trailing" constant="150" id="vBD-bc-TGY"/>
-                            <constraint firstItem="F1M-aC-HHW" firstAttribute="top" secondItem="fwv-pU-Pft" secondAttribute="bottom" constant="8" id="w5m-dz-9tV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="F1M-aC-HHW" secondAttribute="trailing" constant="173" id="zzp-gM-FPs"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="SAE-qQ-1bS"/>
-                    <connections>
-                        <outlet property="imageView" destination="KoT-1X-DRb" id="Fwt-1x-IW6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2103" y="134"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="IIy-z7-skg">
             <objects>
@@ -243,15 +146,12 @@
                         <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
                         <outlet property="cropButton" destination="cgi-Rv-zIl" id="gGK-uZ-BI1"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
-                        <outlet property="whiteView" destination="2I9-ib-9Vz" id="UBq-8Z-XIh"/>
+                        <outlet property="whiteView" destination="2I9-ib-9Vz" id="uwB-8h-ebd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWV-aZ-3MA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1220" y="133.5832083958021"/>
+            <point key="canvasLocation" x="999" y="134"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Abu_dhabi_skylines_2014.jpg" width="1200" height="659"/>
-    </resources>
 </document>
