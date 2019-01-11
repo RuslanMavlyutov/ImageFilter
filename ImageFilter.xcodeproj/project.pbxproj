@@ -16,7 +16,6 @@
 		3125CDE021CA270300668376 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDDE21CA270300668376 /* Main.storyboard */; };
 		3125CDE221CA270800668376 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE121CA270800668376 /* Images.xcassets */; };
 		3125CDE521CA270800668376 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3125CDE321CA270800668376 /* LaunchScreen.storyboard */; };
-		31706A4921CA50E900F3816C /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31706A4821CA50E900F3816C /* FilterModel.swift */; };
 		31706A4B21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */; };
 		318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D514B21E5C72A00FE2C48 /* ImageEditor.swift */; };
 		318D514E21E784EC00FE2C48 /* ImageSelectorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D514D21E784EC00FE2C48 /* ImageSelectorBuilder.swift */; };
@@ -37,7 +36,6 @@
 		3125CDE121CA270800668376 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3125CDE421CA270800668376 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3125CDE621CA270800668376 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31706A4821CA50E900F3816C /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Abu_dhabi_skylines_2014.jpg; sourceTree = "<group>"; };
 		318D514B21E5C72A00FE2C48 /* ImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
 		318D514D21E784EC00FE2C48 /* ImageSelectorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectorBuilder.swift; sourceTree = "<group>"; };
@@ -120,7 +118,6 @@
 		31706A4721CA50CB00F3816C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				31706A4821CA50E900F3816C /* FilterModel.swift */,
 				318D514B21E5C72A00FE2C48 /* ImageEditor.swift */,
 			);
 			path = Model;
@@ -241,7 +238,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31706A4921CA50E900F3816C /* FilterModel.swift in Sources */,
 				3104A15E21D4AFB50088B359 /* CornerpointClientProtocol.swift in Sources */,
 				3104A15C21D4AF460088B359 /* CroppableImageView.swift in Sources */,
 				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
