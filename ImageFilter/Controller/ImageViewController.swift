@@ -13,6 +13,8 @@ final class ImageViewController: UIViewController
 {
     @IBOutlet weak var cropButton: UIButton!
     @IBOutlet weak var cancelFilterButton: UIBarButtonItem!
+    @IBOutlet weak var chooseFilterButton: UIButton!
+    @IBOutlet weak var saveImageButton: UIBarButtonItem!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var cropView: CroppableImageView!
 
@@ -22,18 +24,10 @@ final class ImageViewController: UIViewController
     private var imageSaveBuilder = ImageSaveBuilder()
     private var imageFilterSelectorBuilder = ImageFilterSelectorBuilder()
 
-    override func viewDidAppear(_ animated: Bool) {
-        let status = PHPhotoLibrary.authorizationStatus()
-        if status != .authorized {
-            PHPhotoLibrary.requestAuthorization() {
-                status in
-            }
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         cancelFilterButton.isEnabled = false
+        saveImageButton.isEnabled = false
         originalImage = cropView.imageToCrop
         initDelegate()
     }
@@ -43,6 +37,15 @@ final class ImageViewController: UIViewController
         imageSelectorBuilder.delegate = self
         imageSaveBuilder.delegate = self
         imageFilterSelectorBuilder.delegate = self
+    }
+
+    func checkPhotoLibraryAccess() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status != .authorized {
+            PHPhotoLibrary.requestAuthorization() {
+                status in
+            }
+        }
     }
 
     @IBAction func handleCropButton(_ sender: UIButton)
@@ -61,6 +64,7 @@ final class ImageViewController: UIViewController
     }
 
     @IBAction func handleSelectImgButton(_ sender: UIButton) {
+        checkPhotoLibraryAccess()
         imageSelectorBuilder.imageSelector(sender)
     }
 
@@ -110,6 +114,7 @@ extension ImageViewController: ImageSaveBuilderDelegate {
 extension ImageViewController: ImageFilterSelectorBuilderDelegate {
     func selectFilter(_ filter: ImageFilter) {
         self.imageEditor.selectedFilter = filter
+        chooseFilterButton.setTitle(filter.name, for: .normal)
     }
     func filterActionSheet(_ anActionSheet: UIAlertController) {
         self.present(anActionSheet, animated: true)
@@ -129,8 +134,8 @@ extension ImageViewController: CroppableImageViewDelegateProtocol {
 
 extension ImageViewController: ImageEditorDelegate {
     func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage) {
-        print("delegate")
         cropView.imageToCrop = image
+        saveImageButton.isEnabled = true
     }
 }
 

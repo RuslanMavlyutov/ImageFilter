@@ -135,7 +135,7 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="undo" id="mpM-hW-IzU">
-                                <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="cancelPreviousFilter:" destination="bbS-0U-pKM" id="6qe-yf-uyB"/>
                                 </connections>
@@ -144,8 +144,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
+                        <outlet property="chooseFilterButton" destination="Sav-4H-YQn" id="OVk-hf-R8A"/>
                         <outlet property="cropButton" destination="cgi-Rv-zIl" id="gGK-uZ-BI1"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
+                        <outlet property="saveImageButton" destination="5l1-tJ-PfN" id="RAf-j0-G95"/>
                         <outlet property="whiteView" destination="2I9-ib-9Vz" id="uwB-8h-ebd"/>
                     </connections>
                 </viewController>

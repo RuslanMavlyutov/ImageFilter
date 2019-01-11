@@ -72,13 +72,27 @@ final class ImageEditor {
     
     var selectedFilter: ImageFilter?
     var delegate: ImageEditorDelegate?
+    var appliedEffect: [String : [CGRect?]] = [:]
     var editingImage: UIImage?
     
     func applySelectedFilter(in rect: CGRect?) {
         selectedFilter?.apply(to: editingImage!, in: rect, completion: { img in
+            if let filterName = self.selectedFilter?.name {
+                self.saveAppliedFilter(for: filterName, in: rect)
+            }
             self.editingImage = img
             self.delegate?.imageEditor(self, didChangeImage: self.editingImage!)
         })
+    }
+
+    func saveAppliedFilter(for filterName: String, in rect: CGRect?) {
+        var area = self.appliedEffect[filterName]
+        if (area != nil) {
+            area?.append(rect)
+        } else {
+            area = [rect]
+        }
+        self.appliedEffect[filterName] = area
     }
 }
 
