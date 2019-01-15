@@ -81,12 +81,7 @@ final class ImageViewController: UIViewController
     }
 
     @IBAction func cancelPreviousFilter(_ sender: UIBarButtonItem) {
-//        cropView.imageToCrop = filteredImage.removeLast()
-//        if filteredImage.isEmpty {
-//            cancelFilterButton.isEnabled = false
-//        } else {
-//            cancelFilterButton.isEnabled = true
-//        }
+        imageEditor.revertSelectedFilter()
     }
 }
 
@@ -135,7 +130,13 @@ extension ImageViewController: CroppableImageViewDelegateProtocol {
 extension ImageViewController: ImageEditorDelegate {
     func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage) {
         cropView.imageToCrop = image
-        saveImageButton.isEnabled = true
+        if !imageEditor.savedFilter.isEmpty() {
+            cancelFilterButton.isEnabled = true
+            saveImageButton.isEnabled = true
+        } else {
+            cancelFilterButton.isEnabled = false
+            saveImageButton.isEnabled = false
+        }
     }
 }
 
