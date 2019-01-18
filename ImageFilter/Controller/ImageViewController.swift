@@ -20,9 +20,9 @@ final class ImageViewController: UIViewController
 
     private var originalImage: UIImage?
     private var imageEditor = ImageEditor()
-    private var imageSelectorBuilder = ImageSelectorBuilder()
-    private var imageSaveBuilder = ImageSaveBuilder()
-    private var imageFilterSelectorBuilder = ImageFilterSelectorBuilder()
+    lazy private var imageSelectorBuilder = ImageSelectorBuilder()
+    lazy private var imageSaveBuilder = ImageSaveBuilder()
+    lazy private var imageFilterSelectorBuilder = ImageFilterSelectorBuilder()
 
     override func viewDidLoad() {
         super.viewDidLoad()
