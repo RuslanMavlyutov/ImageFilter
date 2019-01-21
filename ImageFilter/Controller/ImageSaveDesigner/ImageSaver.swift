@@ -1,10 +1,13 @@
-import Foundation
 import UIKit
 import Photos
 
-final class ImageSaveBuilder
+final class ImageSaver
 {
-    var delegate: ImageSaveBuilderDelegate?
+    private let presenter: UIViewController
+
+    init(presenter: UIViewController) {
+        self.presenter = presenter
+    }
 
     func saveImageToDevice(_ image: UIImage) {
         let alert = UIAlertController(title: "ImageFilter", message: "Your image will be saved to Photo Library", preferredStyle: .alert)
@@ -16,7 +19,7 @@ final class ImageSaveBuilder
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .default, handler: { _ in
             NSLog("Canceled.")
         }))
-        delegate?.saveActionSheet(alert)
+        presenter.present(alert, animated: true, completion: nil)
     }
     private func saveImageToCameraRoll(_ image: UIImage) {
         PHPhotoLibrary.shared().performChanges({
@@ -35,10 +38,6 @@ final class ImageSaveBuilder
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" allert occured.")
         }))
-        delegate?.saveActionSheet(alert)
+        presenter.present(alert, animated: true, completion: nil)
     }
-}
-
-protocol ImageSaveBuilderDelegate {
-    func saveActionSheet(_ alert: UIAlertController)
 }

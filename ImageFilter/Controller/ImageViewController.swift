@@ -11,7 +11,7 @@ import Photos
 
 final class ImageViewController: UIViewController
 {
-    @IBOutlet weak var cropButton: UIButton!
+    @IBOutlet weak var applyFilterButton: UIButton!
     @IBOutlet weak var cancelFilterButton: UIBarButtonItem!
     @IBOutlet weak var chooseFilterButton: UIButton!
     @IBOutlet weak var saveImageButton: UIBarButtonItem!
@@ -20,23 +20,22 @@ final class ImageViewController: UIViewController
 
     private var originalImage: UIImage?
     private var imageEditor = ImageEditor()
-    lazy private var imageSelectorBuilder = ImageSelectorBuilder()
-    lazy private var imageSaveBuilder = ImageSaveBuilder()
-    lazy private var imageFilterSelectorBuilder = ImageFilterSelectorBuilder()
+    lazy private var imageSelector = ImageSelector(presenter: self)
+    lazy private var imageSaver = ImageSaver(presenter: self)
+    lazy private var imageFilterSelector = ImageFilterSelector(presenter: self)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         cancelFilterButton.isEnabled = false
         saveImageButton.isEnabled = false
+        applyFilterButton.isEnabled = false
         originalImage = cropView.imageToCrop
         initDelegate()
     }
 
     func initDelegate() {
         imageEditor.delegate = self
-        imageSelectorBuilder.delegate = self
-        imageSaveBuilder.delegate = self
-        imageFilterSelectorBuilder.delegate = self
+        imageFilterSelector.delegate = self
     }
 
     func checkPhotoLibraryAccess() {
@@ -60,12 +59,12 @@ final class ImageViewController: UIViewController
     }
 
     @IBAction func handleSelectEffectButton(_ sender: UIButton) {
-        imageFilterSelectorBuilder.imageFilterSelector(imageEditor)
+        imageFilterSelector.imageFilterSelector(imageEditor)
     }
 
     @IBAction func handleSelectImgButton(_ sender: UIButton) {
         checkPhotoLibraryAccess()
-        imageSelectorBuilder.imageSelector(sender)
+        imageSelector.imageSelector(sender, imageEditor)
     }
 
     func applySelectedEffect(area: CGRect?)
@@ -77,7 +76,7 @@ final class ImageViewController: UIViewController
 
     @IBAction func saveImage(_ sender: Any) {
         guard let img = cropView.imageToCrop else { return }
-        imageSaveBuilder.saveImageToDevice(img)
+        imageSaver.saveImageToDevice(img)
     }
 
     @IBAction func cancelPreviousFilter(_ sender: UIBarButtonItem) {
@@ -85,37 +84,11 @@ final class ImageViewController: UIViewController
     }
 }
 
-extension ImageViewController: ImageSelectorBuilderDelegate {
-    func loadSelectedImage(_ image: UIImage) {
-        self.cropView.imageToCrop = image
-    }
-    func loadActionSheet(_ anActionSheet: UIAlertController) {
-        self.present(anActionSheet, animated: true)
-        {
-            //println("In action sheet completion block")
-        }
-    }
-    func pickImageFromDevice(_ imagePicker: UIImagePickerController) {
-        self.present(imagePicker, animated: true)
-    }
-}
-
-extension ImageViewController: ImageSaveBuilderDelegate {
-    func saveActionSheet(_ alert: UIAlertController) {
-        self.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension ImageViewController: ImageFilterSelectorBuilderDelegate {
-    func selectFilter(_ filter: ImageFilter) {
+extension ImageViewController: ImageFilterSelectorDelegate {
+    func filterSelector(_ selector: ImageFilterSelector, didSelect filter: ImageFilter) {
         self.imageEditor.selectedFilter = filter
         chooseFilterButton.setTitle(filter.name, for: .normal)
-    }
-    func filterActionSheet(_ anActionSheet: UIAlertController) {
-        self.present(anActionSheet, animated: true)
-        {
-            //println("In action sheet completion block")
-        }
+        applyFilterButton.isEnabled = true
     }
 }
 

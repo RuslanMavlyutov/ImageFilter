@@ -139,11 +139,6 @@ final class NoirImageFilter: ImageFilter
     }
 }
 
-protocol ImageEditorDelegate
-{
-    func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage)
-}
-
 final class SavedAppliedFilter
 {
     private var filter: CIFilter
@@ -182,6 +177,11 @@ final class LinkSavedAppliedFilter
     }
 }
 
+protocol ImageEditorDelegate
+{
+    func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage)
+}
+
 final class ImageEditor
 {
     let filters = [
@@ -194,37 +194,39 @@ final class ImageEditor
     var selectedFilter: ImageFilter?
     var delegate: ImageEditorDelegate?
     var appliedEffect: [String : [CGRect?]] = [:]
-    var editingImage: UIImage?
+    var editingImage: UIImage? {
+        didSet {
+            self.delegate?.imageEditor(self, didChangeImage: self.editingImage!)
+        }
+    }
     let savedFilter = LinkSavedAppliedFilter()
     private let workingQueue = DispatchQueue.global(qos: .userInitiated)
 
     func revertSelectedFilter() {
         if !savedFilter.isEmpty() {
-            workingQueue.async {
-                let (filter, area) = self.savedFilter.deleteFirst()
+            workingQueue.async { [weak self]() -> Void in
+                let (filter, area) = (self?.savedFilter.deleteFirst())!
                 let cImg = filter?.value(forKey: kCIInputImageKey) as! CIImage
 
                 let image = UIImage(ciImage: cImg)
-                let rect = area ?? CGRect(x:0.0, y:0.0, width:self.editingImage!.size.width, height:self.editingImage!.size.height)
-                let revertImg = self.editingImage!.drawImageInRect(inputImage: image, inRect: rect)!
+                let rect = area ?? CGRect(x:0.0, y:0.0, width:(self?.editingImage!.size.width)!, height:(self?.editingImage!.size.height)!)
+                let revertImg = self?.editingImage!.drawImageInRect(inputImage: image, inRect: rect)!
                 DispatchQueue.main.async {
-                    self.editingImage = revertImg
-                    self.delegate?.imageEditor(self, didChangeImage: self.editingImage!)
+                    self?.editingImage = revertImg
                 }
             }
         }
     }
     
     func applySelectedFilter(in rect: CGRect?) {
-        workingQueue.async {
-            let img = self.selectedFilter?.apply(to: self.editingImage!, in: rect)
-            if let filterName = self.selectedFilter?.name {
-                self.saveAppliedFilter(for: filterName, in: rect)
-                self.savedFilter.insertFirst(filter: (self.selectedFilter?.filter)!, area: rect)
+        workingQueue.async { [weak self]() -> Void in
+            let img = self?.selectedFilter?.apply(to: (self?.editingImage)!, in: rect)
+            if let filterName = self?.selectedFilter?.name {
+                self?.saveAppliedFilter(for: filterName, in: rect)
+                self?.savedFilter.insertFirst(filter: (self?.selectedFilter?.filter)!, area: rect)
             }
             DispatchQueue.main.async {
-                self.editingImage = img
-                self.delegate?.imageEditor(self, didChangeImage: self.editingImage!)
+                self?.editingImage = img
             }
         }
     }

@@ -143,9 +143,9 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="applyFilterButton" destination="cgi-Rv-zIl" id="gGK-uZ-BI1"/>
                         <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
                         <outlet property="chooseFilterButton" destination="Sav-4H-YQn" id="OVk-hf-R8A"/>
-                        <outlet property="cropButton" destination="cgi-Rv-zIl" id="gGK-uZ-BI1"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
                         <outlet property="saveImageButton" destination="5l1-tJ-PfN" id="RAf-j0-G95"/>
                         <outlet property="whiteView" destination="2I9-ib-9Vz" id="uwB-8h-ebd"/>

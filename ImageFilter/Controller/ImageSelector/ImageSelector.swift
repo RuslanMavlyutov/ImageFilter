@@ -1,17 +1,27 @@
-import Foundation
 import UIKit
 
-final class ImageSelectorBuilder: UIViewController
+final class ImageSelector: UIViewController
 {
+    private let presenter: UIViewController
+    private (set) var imageEditor: ImageEditor?
+
+    init(presenter: UIViewController) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     enum ImageSource: Int
     {
         case camera = 1
         case photoLibrary
     }
 
-    var delegate: ImageSelectorBuilderDelegate?
-
-    func imageSelector(_ sender: UIButton) {
+    func imageSelector(_ sender: UIButton, _ imageEditor: ImageEditor) {
+        self.imageEditor = imageEditor
         let deviceHasCamera: Bool = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         print("In \(#function)")
         
@@ -28,7 +38,7 @@ final class ImageSelectorBuilder: UIViewController
             {
                 (alert: UIAlertAction)  in
                 if let image = UIImage(named: "Abu_dhabi_skylines_2014") {
-                    self.delegate?.loadSelectedImage(image)
+                    imageEditor.editingImage = image
                 }
         }
         )
@@ -84,8 +94,8 @@ final class ImageSelectorBuilder: UIViewController
         let popover = anActionSheet.popoverPresentationController
         popover?.sourceView = sender
         popover?.sourceRect = sender.bounds;
-        
-        delegate?.loadActionSheet(anActionSheet)
+
+        presenter.present(anActionSheet, animated: true, completion: nil)
     }
 
     func imagePickerController(
@@ -96,7 +106,9 @@ final class ImageSelectorBuilder: UIViewController
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
             picker.dismiss(animated: true, completion: nil)
-            delegate?.loadSelectedImage(image)
+            if let editor = imageEditor {
+                editor.editingImage = image
+            }
         }
         //cropView.setNeedsLayout()
     }
@@ -108,7 +120,7 @@ final class ImageSelectorBuilder: UIViewController
     }
 }
 
-extension ImageSelectorBuilder:
+extension ImageSelector:
     UINavigationControllerDelegate,
     UIImagePickerControllerDelegate {
     private func pickImageFromSource(
@@ -131,11 +143,11 @@ extension ImageSelectorBuilder:
         {
             if theImageSource == ImageSource.camera
             {
-                delegate?.pickImageFromDevice(imagePicker)
+                presenter.present(imagePicker, animated: true, completion: nil)
             }
             else
             {
-                delegate?.pickImageFromDevice(imagePicker)
+                presenter.present(imagePicker, animated: true, completion: nil)
 //                self.present(
 //                    imagePicker,
 //                    animated: true)
@@ -159,13 +171,7 @@ extension ImageSelectorBuilder:
         }
         else
         {
-            delegate?.pickImageFromDevice(imagePicker)
+            presenter.present(imagePicker, animated: true, completion: nil)
         }
     }
-}
-
-protocol ImageSelectorBuilderDelegate {
-    func loadSelectedImage(_ image: UIImage)
-    func loadActionSheet(_ anActionSheet: UIAlertController)
-    func pickImageFromDevice(_ imagePicker: UIImagePickerController)
 }

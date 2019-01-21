@@ -1,9 +1,17 @@
-import Foundation
 import UIKit
 
-final class ImageFilterSelectorBuilder
+protocol ImageFilterSelectorDelegate: class {
+    func filterSelector(_ selector: ImageFilterSelector, didSelect filter: ImageFilter)
+}
+
+final class ImageFilterSelector
 {
-    var delegate: ImageFilterSelectorBuilderDelegate?
+    private let presenter: UIViewController
+
+    init(presenter: UIViewController) {
+        self.presenter = presenter
+    }
+    weak var delegate: ImageFilterSelectorDelegate?
 
     func imageFilterSelector(_ imageEditor: ImageEditor) {
         let anActionSheet =  UIAlertController(title: "Choose Filter Image",
@@ -17,16 +25,11 @@ final class ImageFilterSelectorBuilder
                 {
                     (alert: UIAlertAction)  in
                     print(filter.name)
-                    self.delegate?.selectFilter(filter)
+                    self.delegate?.filterSelector(self, didSelect: filter)
             }
             )
             anActionSheet.addAction(action)
         }
-        self.delegate?.filterActionSheet(anActionSheet)
+        presenter.present(anActionSheet, animated: true, completion: nil)
     }
-}
-
-protocol ImageFilterSelectorBuilderDelegate {
-    func selectFilter(_ filter: ImageFilter)
-    func filterActionSheet(_ anActionSheet: UIAlertController)
 }
