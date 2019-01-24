@@ -185,13 +185,13 @@ protocol ImageEditorDelegate
 final class ImageEditor
 {
     let filters = [
-        SepiaImageFilter(),
-        BlurImageFilter(),
-        PhotoEffectImageFilter(),
-        NoirImageFilter()
-        ] as [ImageFilter]
+        "Sepia",
+        "Blur",
+        "Photo Effect",
+        "Noir"
+        ]
     
-    var selectedFilter: ImageFilter?
+    var selectedFilter: String?
     var delegate: ImageEditorDelegate?
     var appliedEffect: [String : [CGRect?]] = [:]
     var editingImage: UIImage? {
@@ -220,13 +220,13 @@ final class ImageEditor
     
     func applySelectedFilter(in rect: CGRect?) {
         workingQueue.async { [weak self]() -> Void in
-            let img = self?.selectedFilter?.apply(to: (self?.editingImage)!, in: rect)
-            if let filterName = self?.selectedFilter?.name {
-                self?.saveAppliedFilter(for: filterName, in: rect)
-                self?.savedFilter.insertFirst(filter: (self?.selectedFilter?.filter)!, area: rect)
-            }
-            DispatchQueue.main.async {
-                self?.editingImage = img
+            if let imageFilter = FilterFactory.filter(filterName: (self?.selectedFilter)!) {
+                let img = imageFilter.apply(to: (self?.editingImage)!, in: rect)
+                self?.saveAppliedFilter(for: imageFilter.name, in: rect)
+                self?.savedFilter.insertFirst(filter: imageFilter.filter, area: rect)
+                DispatchQueue.main.async {
+                    self?.editingImage = img
+                }
             }
         }
     }
@@ -239,6 +239,26 @@ final class ImageEditor
             area = [rect]
         }
         self.appliedEffect[filterName] = area
+    }
+}
+
+final class FilterFactory
+{
+    static func filter(filterName: String) -> ImageFilter? {
+        var filter: ImageFilter?
+        switch filterName {
+        case "Sepia":
+            filter = SepiaImageFilter()
+        case "Blur":
+            filter = BlurImageFilter()
+        case "Photo Effect":
+            filter = PhotoEffectImageFilter()
+        case "Noir":
+            filter = NoirImageFilter()
+        default:
+            break
+        }
+        return filter
     }
 }
 

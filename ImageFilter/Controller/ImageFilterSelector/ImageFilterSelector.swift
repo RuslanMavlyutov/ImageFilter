@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ImageFilterSelectorDelegate: class {
-    func filterSelector(_ selector: ImageFilterSelector, didSelect filter: ImageFilter)
+    func filterSelector(_ selector: ImageFilterSelector, didSelect filterName: String)
 }
 
 final class ImageFilterSelector
@@ -19,12 +19,12 @@ final class ImageFilterSelector
                                                preferredStyle: UIAlertControllerStyle.actionSheet)
 
         for filter in imageEditor.filters {
-            let action = UIAlertAction(title: filter.name,
+            let action = UIAlertAction(title: filter,
                                        style: UIAlertActionStyle.default,
                                        handler:
                 {
                     (alert: UIAlertAction)  in
-                    print(filter.name)
+                    print(filter)
                     self.delegate?.filterSelector(self, didSelect: filter)
             }
             )

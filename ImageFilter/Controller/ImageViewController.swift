@@ -85,9 +85,9 @@ final class ImageViewController: UIViewController
 }
 
 extension ImageViewController: ImageFilterSelectorDelegate {
-    func filterSelector(_ selector: ImageFilterSelector, didSelect filter: ImageFilter) {
-        self.imageEditor.selectedFilter = filter
-        chooseFilterButton.setTitle(filter.name, for: .normal)
+    func filterSelector(_ selector: ImageFilterSelector, didSelect filterName: String) {
+        self.imageEditor.selectedFilter = filterName
+        chooseFilterButton.setTitle(filterName, for: .normal)
         applyFilterButton.isEnabled = true
     }
 }
