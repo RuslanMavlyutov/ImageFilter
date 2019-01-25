@@ -82,6 +82,29 @@ final class ImageViewController: UIViewController
     @IBAction func cancelPreviousFilter(_ sender: UIBarButtonItem) {
         imageEditor.revertSelectedFilter()
     }
+
+    @IBAction func addSticker(_ sender: UIBarButtonItem) {
+        if let vc = viewController() {
+            vc.delegate = self
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+    func viewController() -> StickerViewController? {
+        return UIStoryboard.init(
+            name: "Main", bundle: Bundle.main)
+            .instantiateViewController(withIdentifier: "stickerView"
+            ) as? StickerViewController
+    }
+
+    func putStickerToImage(sticker image: UIImage) {
+        let imgSticker = UIImageView(frame: CGRect.init(x: 0.0, y: 0.0, width: 160, height: 160))
+        imgSticker.center = cropView.viewForImage.center
+        imgSticker.image = image
+        imgSticker.contentMode = UIViewContentMode.scaleAspectFill
+        imgSticker.isUserInteractionEnabled = true
+        cropView.viewForImage.addSubview(imgSticker)
+    }
 }
 
 extension ImageViewController: ImageFilterSelectorDelegate {
@@ -97,6 +120,15 @@ extension ImageViewController: CroppableImageViewDelegateProtocol {
     {
         print("In haveValidCropRect. Value = \(haveValidCropRect)")
 //        cropButton.isEnabled = haveValidCropRect
+    }
+}
+
+extension ImageViewController: StickerViewControllerDelegate {
+    func imageSelector(_ ctrl: StickerViewController,
+                       didSelectImage image: UIImage)
+    {
+        navigationController?.popViewController(animated: true)
+        putStickerToImage(sticker: image)
     }
 }
 
