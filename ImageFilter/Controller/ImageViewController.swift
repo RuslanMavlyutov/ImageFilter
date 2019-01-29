@@ -35,6 +35,7 @@ final class ImageViewController: UIViewController
 
     func initDelegate() {
         imageEditor.delegate = self
+        imageSelector.delegate = self
         imageFilterSelector.delegate = self
     }
 
@@ -59,12 +60,12 @@ final class ImageViewController: UIViewController
     }
 
     @IBAction func handleSelectEffectButton(_ sender: UIButton) {
-        imageFilterSelector.imageFilterSelector(imageEditor)
+        imageFilterSelector.selectFilterFrom(filters: imageEditor.filters)
     }
 
     @IBAction func handleSelectImgButton(_ sender: UIButton) {
         checkPhotoLibraryAccess()
-        imageSelector.imageSelector(sender, imageEditor)
+        imageSelector.selectImageFromDevice(sender)
     }
 
     func applySelectedEffect(area: CGRect?)
@@ -107,6 +108,12 @@ final class ImageViewController: UIViewController
     }
 }
 
+extension ImageViewController: ImageSelectorDelegate {
+    func imageSelector(_ selector: ImageSelector, didSelect image: UIImage) {
+        imageEditor.editingImage = image
+    }
+}
+
 extension ImageViewController: ImageFilterSelectorDelegate {
     func filterSelector(_ selector: ImageFilterSelector, didSelect filterName: String) {
         self.imageEditor.selectedFilter = filterName
@@ -135,7 +142,7 @@ extension ImageViewController: StickerViewControllerDelegate {
 extension ImageViewController: ImageEditorDelegate {
     func imageEditor(_ editor: ImageEditor, didChangeImage image: UIImage) {
         cropView.imageToCrop = image
-        if !imageEditor.savedFilter.isEmpty() {
+        if imageEditor.canUndo {
             cancelFilterButton.isEnabled = true
             saveImageButton.isEnabled = true
         } else {

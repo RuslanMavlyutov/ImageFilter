@@ -1,15 +1,18 @@
 import UIKit
 
+protocol ImageSelectorDelegate: class {
+    func imageSelector(_ selector: ImageSelector, didSelect image: UIImage)
+}
+
 final class ImageSelector: UIViewController
 {
     private let presenter: UIViewController
-    private (set) var imageEditor: ImageEditor?
 
     init(presenter: UIViewController) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
-
+    weak var delegate: ImageSelectorDelegate?
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -20,8 +23,7 @@ final class ImageSelector: UIViewController
         case photoLibrary
     }
 
-    func imageSelector(_ sender: UIButton, _ imageEditor: ImageEditor) {
-        self.imageEditor = imageEditor
+    func selectImageFromDevice(_ sender: UIButton) {
         let deviceHasCamera: Bool = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
         print("In \(#function)")
         
@@ -38,7 +40,7 @@ final class ImageSelector: UIViewController
             {
                 (alert: UIAlertAction)  in
                 if let image = UIImage(named: "Abu_dhabi_skylines_2014") {
-                    imageEditor.editingImage = image
+                    self.delegate?.imageSelector(self, didSelect: image)
                 }
         }
         )
@@ -106,9 +108,7 @@ final class ImageSelector: UIViewController
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         {
             picker.dismiss(animated: true, completion: nil)
-            if let editor = imageEditor {
-                editor.editingImage = image
-            }
+            self.delegate?.imageSelector(self, didSelect: image)
         }
         //cropView.setNeedsLayout()
     }

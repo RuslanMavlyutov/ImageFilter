@@ -13,12 +13,12 @@ final class ImageFilterSelector
     }
     weak var delegate: ImageFilterSelectorDelegate?
 
-    func imageFilterSelector(_ imageEditor: ImageEditor) {
+    func selectFilterFrom(filters: [String]) {
         let anActionSheet =  UIAlertController(title: "Choose Filter Image",
                                                message: nil,
                                                preferredStyle: UIAlertControllerStyle.actionSheet)
 
-        for filter in imageEditor.filters {
+        for filter in filters {
             let action = UIAlertAction(title: filter,
                                        style: UIAlertActionStyle.default,
                                        handler:
