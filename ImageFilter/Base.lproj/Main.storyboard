@@ -128,6 +128,18 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="5Zz-P0-H5k">
+                        <leftBarButtonItems>
+                            <barButtonItem title="Add sticker" id="YS4-f5-RYx">
+                                <connections>
+                                    <action selector="addSticker:" destination="bbS-0U-pKM" id="ON1-zH-q6Q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Fix Sticker" id="PQg-R7-ev7">
+                                <connections>
+                                    <action selector="fixStickerForImage:" destination="bbS-0U-pKM" id="heF-if-m9o"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem title="Save Image" id="5l1-tJ-PfN">
                                 <connections>
@@ -147,6 +159,7 @@
                         <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
                         <outlet property="chooseFilterButton" destination="Sav-4H-YQn" id="OVk-hf-R8A"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
+                        <outlet property="fixButton" destination="PQg-R7-ev7" id="36a-D5-Dn6"/>
                         <outlet property="saveImageButton" destination="5l1-tJ-PfN" id="RAf-j0-G95"/>
                         <outlet property="whiteView" destination="2I9-ib-9Vz" id="uwB-8h-ebd"/>
                     </connections>
@@ -154,6 +167,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OWV-aZ-3MA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="999" y="134"/>
+        </scene>
+        <!--Sticker View Controller-->
+        <scene sceneID="GRg-YG-tRh">
+            <objects>
+                <viewController storyboardIdentifier="stickerView" id="JkC-f6-ke1" customClass="StickerViewController" customModule="ImageFilter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aMh-Kr-702">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sHY-9H-gfD">
+                                <rect key="frame" x="5" y="25" width="365" height="637"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TKi-Ca-DiA">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="uB8-c1-M95" customClass="ImageCell" customModule="ImageFilter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Edo-Le-lRW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Edo-Le-lRW" firstAttribute="top" secondItem="uB8-c1-M95" secondAttribute="top" id="Zmq-hW-WoZ"/>
+                                            <constraint firstItem="Edo-Le-lRW" firstAttribute="leading" secondItem="uB8-c1-M95" secondAttribute="leading" id="beY-3i-bjs"/>
+                                            <constraint firstAttribute="bottom" secondItem="Edo-Le-lRW" secondAttribute="bottom" id="ga9-eU-7Dr"/>
+                                            <constraint firstAttribute="trailing" secondItem="Edo-Le-lRW" secondAttribute="trailing" id="n4E-0q-Q5R"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="Edo-Le-lRW" id="99w-EE-MSd"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="JkC-f6-ke1" id="kNb-Ny-E0z"/>
+                                    <outlet property="delegate" destination="JkC-f6-ke1" id="enW-Yg-SpT"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="w4F-qj-bs7" firstAttribute="trailing" secondItem="sHY-9H-gfD" secondAttribute="trailing" constant="5" id="GcR-F4-E7N"/>
+                            <constraint firstItem="sHY-9H-gfD" firstAttribute="leading" secondItem="w4F-qj-bs7" secondAttribute="leading" constant="5" id="Jay-Tm-abe"/>
+                            <constraint firstItem="w4F-qj-bs7" firstAttribute="bottom" secondItem="sHY-9H-gfD" secondAttribute="bottom" constant="5" id="M8j-MU-iBW"/>
+                            <constraint firstItem="sHY-9H-gfD" firstAttribute="top" secondItem="w4F-qj-bs7" secondAttribute="top" constant="5" id="VHR-YA-tD4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="w4F-qj-bs7"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="sHY-9H-gfD" id="QlW-PW-nv3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f8K-4k-DVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1760.8" y="133.5832083958021"/>
         </scene>
     </scenes>
 </document>

@@ -15,7 +15,7 @@ final class ImageEditor
         "Photo Effect",
         "Noir"
     ]
-    
+
     var selectedFilter: String?
     var delegate: ImageEditorDelegate?
     private var filteredimages: [UIImage] = []
