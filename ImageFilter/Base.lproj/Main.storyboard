@@ -128,11 +128,18 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="5Zz-P0-H5k">
-                        <barButtonItem key="leftBarButtonItem" title="Add sticker" id="YS4-f5-RYx">
-                            <connections>
-                                <action selector="addSticker:" destination="bbS-0U-pKM" id="ON1-zH-q6Q"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Add sticker" id="YS4-f5-RYx">
+                                <connections>
+                                    <action selector="addSticker:" destination="bbS-0U-pKM" id="ON1-zH-q6Q"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Fix Sticker" id="PQg-R7-ev7">
+                                <connections>
+                                    <action selector="fixStickerForImage:" destination="bbS-0U-pKM" id="heF-if-m9o"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem title="Save Image" id="5l1-tJ-PfN">
                                 <connections>
@@ -152,6 +159,7 @@
                         <outlet property="cancelFilterButton" destination="mpM-hW-IzU" id="Dpj-7f-W9l"/>
                         <outlet property="chooseFilterButton" destination="Sav-4H-YQn" id="OVk-hf-R8A"/>
                         <outlet property="cropView" destination="1YE-db-FrH" id="aIT-hd-bz2"/>
+                        <outlet property="fixButton" destination="PQg-R7-ev7" id="36a-D5-Dn6"/>
                         <outlet property="saveImageButton" destination="5l1-tJ-PfN" id="RAf-j0-G95"/>
                         <outlet property="whiteView" destination="2I9-ib-9Vz" id="uwB-8h-ebd"/>
                     </connections>

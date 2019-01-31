@@ -24,6 +24,7 @@
 		3166CFA221FB16A3002C0849 /* icons8-cat-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 3166CF9D21FB16A3002C0849 /* icons8-cat-512.png */; };
 		3166CFA321FB16A3002C0849 /* animal-png-hd-download-png-image-tiger-png-hd-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 3166CF9E21FB16A3002C0849 /* animal-png-hd-download-png-image-tiger-png-hd-1024.png */; };
 		31706A4B21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */; };
+		317514F622032A9400F5301B /* StickerEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317514F522032A9400F5301B /* StickerEditor.swift */; };
 		318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D514B21E5C72A00FE2C48 /* ImageEditor.swift */; };
 		318D514E21E784EC00FE2C48 /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D514D21E784EC00FE2C48 /* ImageSelector.swift */; };
 		318D515221E86B0800FE2C48 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515121E86B0800FE2C48 /* ImageSaver.swift */; };
@@ -51,6 +52,7 @@
 		3166CF9D21FB16A3002C0849 /* icons8-cat-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icons8-cat-512.png"; path = "ImageFilter/Image/Image icon/icons8-cat-512.png"; sourceTree = SOURCE_ROOT; };
 		3166CF9E21FB16A3002C0849 /* animal-png-hd-download-png-image-tiger-png-hd-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "animal-png-hd-download-png-image-tiger-png-hd-1024.png"; path = "ImageFilter/Image/Image icon/animal-png-hd-download-png-image-tiger-png-hd-1024.png"; sourceTree = SOURCE_ROOT; };
 		31706A4A21CB6A9A00F3816C /* Abu_dhabi_skylines_2014.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Abu_dhabi_skylines_2014.jpg; sourceTree = "<group>"; };
+		317514F522032A9400F5301B /* StickerEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerEditor.swift; sourceTree = "<group>"; };
 		318D514B21E5C72A00FE2C48 /* ImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
 		318D514D21E784EC00FE2C48 /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
 		318D515121E86B0800FE2C48 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
@@ -164,9 +166,26 @@
 		31706A4721CA50CB00F3816C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				318D514B21E5C72A00FE2C48 /* ImageEditor.swift */,
+				317514F422032A7700F5301B /* StickerEditor */,
+				317514F322032A6500F5301B /* ImageEditor */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		317514F322032A6500F5301B /* ImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				318D514B21E5C72A00FE2C48 /* ImageEditor.swift */,
+			);
+			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		317514F422032A7700F5301B /* StickerEditor */ = {
+			isa = PBXGroup;
+			children = (
+				317514F522032A9400F5301B /* StickerEditor.swift */,
+			);
+			path = StickerEditor;
 			sourceTree = "<group>";
 		};
 		318D514921D74C8B00FE2C48 /* CroppBuilder */ = {
@@ -299,6 +318,7 @@
 				318D515521E8826D00FE2C48 /* RectSizeConstructor.swift in Sources */,
 				3104A16021D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift in Sources */,
 				318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */,
+				317514F622032A9400F5301B /* StickerEditor.swift in Sources */,
 				318D515221E86B0800FE2C48 /* ImageSaver.swift in Sources */,
 				3125CDDB21CA270300668376 /* AppDelegate.swift in Sources */,
 				3166CF7421FAEB30002C0849 /* ImageCell.swift in Sources */,

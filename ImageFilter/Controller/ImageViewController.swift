@@ -17,6 +17,7 @@ final class ImageViewController: UIViewController
     @IBOutlet weak var saveImageButton: UIBarButtonItem!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var cropView: CroppableImageView!
+    @IBOutlet weak var fixButton: UIBarButtonItem!
 
     private var originalImage: UIImage?
     private var imageEditor = ImageEditor()
@@ -29,6 +30,7 @@ final class ImageViewController: UIViewController
         cancelFilterButton.isEnabled = false
         saveImageButton.isEnabled = false
         applyFilterButton.isEnabled = false
+        fixButton.isEnabled = false
         originalImage = cropView.imageToCrop
         initDelegate()
     }
@@ -77,6 +79,11 @@ final class ImageViewController: UIViewController
 
     @IBAction func saveImage(_ sender: Any) {
         guard let img = cropView.imageToCrop else { return }
+
+        if !cropView.draggersSticker.isEmpty, let imageWithSticker = cropView.imageWithSticker() {
+           imageSaver.saveImageToDevice(imageWithSticker)
+            return
+        }
         imageSaver.saveImageToDevice(img)
     }
 
@@ -91,6 +98,11 @@ final class ImageViewController: UIViewController
         }
     }
 
+    @IBAction func fixStickerForImage(_ sender: UIBarButtonItem) {
+        cropView.isEnabledSelectedArea = true
+        fixButton.isEnabled = false
+    }
+
     func viewController() -> StickerViewController? {
         return UIStoryboard.init(
             name: "Main", bundle: Bundle.main)
@@ -99,18 +111,15 @@ final class ImageViewController: UIViewController
     }
 
     func putStickerToImage(sticker image: UIImage) {
-        let imgSticker = UIImageView(frame: CGRect.init(x: 0.0, y: 0.0, width: 160, height: 160))
-        imgSticker.center = cropView.viewForImage.center
-        imgSticker.image = image
-        imgSticker.contentMode = UIViewContentMode.scaleAspectFill
-        imgSticker.isUserInteractionEnabled = true
-        cropView.viewForImage.addSubview(imgSticker)
+        cropView.putStickerToImage(sticker: image)
+        fixButton.isEnabled = true
     }
 }
 
 extension ImageViewController: ImageSelectorDelegate {
     func imageSelector(_ selector: ImageSelector, didSelect image: UIImage) {
         imageEditor.editingImage = image
+        cropView.removeSticker()
     }
 }
 
@@ -127,6 +136,12 @@ extension ImageViewController: CroppableImageViewDelegateProtocol {
     {
         print("In haveValidCropRect. Value = \(haveValidCropRect)")
 //        cropButton.isEnabled = haveValidCropRect
+    }
+    func haveStickerForImage(_ haveStickerForImage:Bool)
+    {
+        if !imageEditor.canUndo {
+            saveImageButton.isEnabled = haveStickerForImage
+        }
     }
 }
 
@@ -147,7 +162,9 @@ extension ImageViewController: ImageEditorDelegate {
             saveImageButton.isEnabled = true
         } else {
             cancelFilterButton.isEnabled = false
-            saveImageButton.isEnabled = false
+            if cropView.draggersSticker.isEmpty {
+                saveImageButton.isEnabled = false
+            }
         }
     }
 }

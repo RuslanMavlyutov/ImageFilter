@@ -44,10 +44,22 @@ class CroppableImageView: UIView, CornerpointClientProtocol
 
     @IBOutlet var  cropDelegate: CroppableImageViewDelegateProtocol?
     let dragger: UIPanGestureRecognizer
+    var draggersSticker: [UIImageView : [UIGestureRecognizer]] = [:]
     var cornerpoints =  [CornerpointView]()
 
     var startPoint: CGPoint?
     fileprivate var internalCropRect: CGRect?
+    var isEnabledSelectedArea: Bool = true {
+        didSet {
+            if !isEnabledSelectedArea {
+                removeGestureRecognizer(dragger)
+            } else {
+                addGestureRecognizer(dragger)
+                removeGestureForSticker()
+                cropDelegate?.haveStickerForImage(!draggersSticker.isEmpty)
+            }
+        }
+    }
     var cropRect: CGRect?
     {
         set

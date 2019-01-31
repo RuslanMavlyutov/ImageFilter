@@ -16,4 +16,5 @@ import Foundation
 @objc protocol CroppableImageViewDelegateProtocol
 {
     func haveValidCropRect(_: Bool)
+    func haveStickerForImage(_: Bool)
 }
