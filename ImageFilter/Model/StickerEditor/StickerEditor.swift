@@ -4,7 +4,7 @@ import UIKit
 extension CroppableImageView
 {
     func putStickerToImage(sticker image: UIImage) {
-        let imgSticker = UIImageView(frame: CGRect.init(x: 0.0, y: 0.0, width: 160, height: 160))
+        let imgSticker = UIImageView(frame: CGRect.init(x: 0.0, y: 0.0, width: 120, height: 120))
         imgSticker.center = viewForImage.center
         imgSticker.image = image
         imgSticker.contentMode = UIViewContentMode.scaleAspectFill
@@ -46,16 +46,30 @@ extension CroppableImageView
         }
     }
 
+    func setTranslationWithLimit(_ view : UIView, _ translation: CGPoint) {
+        let movedToX = view.center.x + translation.x
+        let movedToY = view.center.y + translation.y
+        let maxLimitForX = viewForImage.frame.width
+        let minLimitForX = CGFloat()
+        let maxLimitForY = (viewForImage.frame.height - view.frame.size.height / 4)
+        let minLimitForY = CGFloat()
+
+        if movedToX < maxLimitForX && movedToX > minLimitForX &&
+            movedToY < maxLimitForY && movedToY > minLimitForY {
+            view.center = CGPoint(x:view.center.x + translation.x,
+                                  y:view.center.y + translation.y)
+        }
+    }
+
     @objc func handlePanSticker(recognizer: UIPanGestureRecognizer)
     {
         guard recognizer.view != nil else { return }
 
         let translation = recognizer.translation(in: self)
-        if let view = recognizer.view {
-            view.center = CGPoint(x:view.center.x + translation.x,
-                                  y:view.center.y + translation.y)
-        }
-        recognizer.setTranslation(CGPoint.zero, in: self.viewForImage)
+            if let view = recognizer.view {
+                setTranslationWithLimit(view, translation)
+            }
+            recognizer.setTranslation(CGPoint.zero, in: self.viewForImage)
     }
 
     @objc func handleRotationSticker(recognizer: UIRotationGestureRecognizer)
