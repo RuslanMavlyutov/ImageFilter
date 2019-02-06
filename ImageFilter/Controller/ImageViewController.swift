@@ -100,7 +100,7 @@ final class ImageViewController: UIViewController
 
     @IBAction func fixStickerForImage(_ sender: UIBarButtonItem) {
         cropView.isEnabledSelectedArea = true
-        fixButton.isEnabled = false
+        stateFixButton(false)
     }
 
     func viewController() -> StickerViewController? {
@@ -112,7 +112,11 @@ final class ImageViewController: UIViewController
 
     func putStickerToImage(sticker image: UIImage) {
         cropView.putStickerToImage(sticker: image)
-        fixButton.isEnabled = true
+        stateFixButton(true)
+    }
+
+    func stateFixButton(_ isEnabled : Bool) {
+        fixButton.isEnabled = isEnabled
     }
 }
 
@@ -120,6 +124,8 @@ extension ImageViewController: ImageSelectorDelegate {
     func imageSelector(_ selector: ImageSelector, didSelect image: UIImage) {
         imageEditor.editingImage = image
         cropView.removeSticker()
+        stateFixButton(false)
+        cropView.draggersSticker.removeAll()
     }
 }
 
