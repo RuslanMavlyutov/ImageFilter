@@ -66,25 +66,41 @@ extension CroppableImageView
         guard recognizer.view != nil else { return }
 
         let translation = recognizer.translation(in: self)
-            if let view = recognizer.view {
-                setTranslationWithLimit(view, translation)
-            }
-            recognizer.setTranslation(CGPoint.zero, in: self.viewForImage)
+        if let view = recognizer.view {
+            setTranslationWithLimit(view, translation)
+        }
+        recognizer.setTranslation(CGPoint.zero, in: self.viewForImage)
     }
 
     @objc func handleRotationSticker(recognizer: UIRotationGestureRecognizer)
     {
         guard recognizer.view != nil else { return }
 
-        transform = transform.rotated(by: recognizer.rotation)
-        recognizer.rotation = 0
+        var originalRotation = CGFloat()
+        if recognizer.state == .began {
+            recognizer.rotation = lastRotation
+            originalRotation = recognizer.rotation
+        } else if recognizer.state == .changed {
+            let newRotation = recognizer.rotation + originalRotation
+            recognizer.view?.transform = CGAffineTransform(rotationAngle: newRotation)
+        } else if recognizer.state == .ended {
+            lastRotation = recognizer.rotation
+        }
     }
 
     @objc func handlePinchSticker(recognizer: UIPinchGestureRecognizer)
     {
         guard recognizer.view != nil else { return }
 
-        transform = transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
-        recognizer.scale = 1
+        var originalScale: CGFloat = 1
+        if recognizer.state == .began {
+            recognizer.scale = lastScale
+            originalScale = recognizer.scale
+        } else if recognizer.state == .changed {
+            let newScale = recognizer.scale + originalScale
+            recognizer.view?.transform = CGAffineTransform(scaleX: newScale, y: newScale)
+        } else if recognizer.state == .ended {
+            lastScale = recognizer.scale
+        }
     }
 }

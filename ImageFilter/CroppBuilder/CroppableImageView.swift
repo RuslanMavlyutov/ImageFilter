@@ -40,6 +40,8 @@ class CroppableImageView: UIView, CornerpointClientProtocol
     var  imageSize: CGSize?
     var  imageRect: CGRect?
     var aspect: CGFloat
+    var lastRotation: CGFloat = 0
+    var lastScale: CGFloat = 1
     var draggingRect: Bool = false
 
     @IBOutlet var  cropDelegate: CroppableImageViewDelegateProtocol?
