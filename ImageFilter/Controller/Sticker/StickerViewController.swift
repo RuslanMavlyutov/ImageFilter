@@ -7,6 +7,7 @@ protocol StickerViewControllerDelegate {
 
 final class StickerViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    private var isLayoutSetup = false
 
     var delegate: StickerViewControllerDelegate?
     private let imageArray = ["banana", "icons8-cat-512", "monkey", "Sticker_Line_LeopardCat05",
@@ -18,16 +19,23 @@ final class StickerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        reloadUI()
     }
 
-    func reloadUI() {
+    override func viewDidLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if !isLayoutSetup {
+            isLayoutSetup = true
+            setupCollectionViewLayout()
+        }
+    }
+
+    func setupCollectionViewLayout() {
         let leftSpacing = Constants.spacing
         let rightSpacing = Constants.spacing
         let spacingBetweenCell = (Constants.spacing - 1) * Constants.spacing
         let fullSpacing = leftSpacing + rightSpacing + spacingBetweenCell + CGFloat(imageArray.count) - 1
-        let itemSize = (UIScreen.main.bounds.width) / CGFloat(imageArray.count) - fullSpacing
-        print(UIScreen.main.bounds.width)
+        let itemSize = (view.bounds.width) / CGFloat(imageArray.count) - fullSpacing
+        print(view.bounds.width)
 
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsetsMake(0, Constants.spacing, 0, Constants.spacing)
