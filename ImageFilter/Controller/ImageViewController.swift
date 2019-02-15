@@ -17,13 +17,17 @@ final class ImageViewController: UIViewController
     @IBOutlet weak var saveImageButton: UIBarButtonItem!
     @IBOutlet weak var whiteView: UIView!
     @IBOutlet weak var cropView: CroppableImageView!
+    @IBOutlet weak var addStickerButton: UIBarButtonItem!
     @IBOutlet weak var fixButton: UIBarButtonItem!
+    @IBOutlet weak var faceDetectionButton: UIBarButtonItem!
+    @IBOutlet weak var undoButton: UIBarButtonItem!
 
     private var originalImage: UIImage?
     private var imageEditor = ImageEditor()
     lazy private var imageSelector = ImageSelector(presenter: self)
     lazy private var imageSaver = ImageSaver(presenter: self)
     lazy private var imageFilterSelector = ImageFilterSelector(presenter: self)
+    lazy private var faceDetection = FaceDetectionConstructor(presenter: self, view: cropView)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,13 +36,33 @@ final class ImageViewController: UIViewController
         applyFilterButton.isEnabled = false
         fixButton.isEnabled = false
         originalImage = cropView.imageToCrop
+        initStyleBarButton()
         initDelegate()
+    }
+
+    enum faceButtonTitle: String {
+        case add = "Face Detection"
+        case clear = "Clear"
+    }
+
+    func initStyleBarButton() {
+        guard let font = UIFont(name: "Helvetica-Bold", size: 12) else { return }
+
+        for controlState in [UIControlState.normal, UIControlState.disabled, UIControlState.focused,
+                             UIControlState.highlighted, UIControlState.selected] {
+            addStickerButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: controlState)
+            fixButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: controlState)
+            faceDetectionButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: controlState)
+            undoButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: controlState)
+            saveImageButton.setTitleTextAttributes([NSAttributedStringKey.font: font], for: controlState)
+        }
     }
 
     func initDelegate() {
         imageEditor.delegate = self
         imageSelector.delegate = self
         imageFilterSelector.delegate = self
+        faceDetection.delegate = self
     }
 
     func checkPhotoLibraryAccess() {
@@ -118,14 +142,43 @@ final class ImageViewController: UIViewController
     func stateFixButton(_ isEnabled : Bool) {
         fixButton.isEnabled = isEnabled
     }
+
+    @IBAction func faceDetectionProcess(_ sender: UIBarButtonItem) {
+        switch faceDetectionButton.title {
+        case faceButtonTitle.add.rawValue:
+            faceDetection.faceDetect()
+        case faceButtonTitle.clear.rawValue:
+            faceDetection.removeBoxView()
+        default:
+            print("Failed title")
+            break
+        }
+    }
+
+    func resetAddingStickerAndFaceDetection() {
+        if !cropView.draggersSticker.isEmpty {
+            cropView.removeSticker()
+            cropView.draggersSticker.removeAll()
+        }
+        faceDetection.removeBoxView()
+    }
+}
+
+extension ImageViewController: FaceDetectionConstructorDelegate {
+    func faceSelector(_ selector: FaceDetectionConstructor,
+                      isSelected isFaceDetect: Bool) {
+        if isFaceDetect {
+            faceDetectionButton.title = faceButtonTitle.add.rawValue
+        } else {
+            faceDetectionButton.title = faceButtonTitle.clear.rawValue
+        }
+    }
 }
 
 extension ImageViewController: ImageSelectorDelegate {
     func imageSelector(_ selector: ImageSelector, didSelect image: UIImage) {
         imageEditor.editingImage = image
-        cropView.removeSticker()
-        stateFixButton(false)
-        cropView.draggersSticker.removeAll()
+        resetAddingStickerAndFaceDetection()
     }
 }
 
@@ -145,9 +198,8 @@ extension ImageViewController: CroppableImageViewDelegateProtocol {
     }
     func haveStickerForImage(_ haveStickerForImage:Bool)
     {
-        if !imageEditor.canUndo {
-            saveImageButton.isEnabled = haveStickerForImage
-        }
+        fixButton.isEnabled = !haveStickerForImage
+        saveImageButton.isEnabled = !haveStickerForImage
     }
 }
 

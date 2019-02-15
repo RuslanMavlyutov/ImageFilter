@@ -30,6 +30,7 @@
 		318D515221E86B0800FE2C48 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515121E86B0800FE2C48 /* ImageSaver.swift */; };
 		318D515521E8826D00FE2C48 /* RectSizeConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515421E8826D00FE2C48 /* RectSizeConstructor.swift */; };
 		318D515821E8872300FE2C48 /* ImageFilterSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515721E8872300FE2C48 /* ImageFilterSelector.swift */; };
+		31BCB7AE2215610000880022 /* FaceDetectionConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCB7AD2215610000880022 /* FaceDetectionConstructor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		318D515121E86B0800FE2C48 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		318D515421E8826D00FE2C48 /* RectSizeConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectSizeConstructor.swift; sourceTree = "<group>"; };
 		318D515721E8872300FE2C48 /* ImageFilterSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterSelector.swift; sourceTree = "<group>"; };
+		31BCB7AD2215610000880022 /* FaceDetectionConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionConstructor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 			children = (
 				312F06ED21FAE5B70069E882 /* Sticker */,
 				318D515321E8825000FE2C48 /* RectSize */,
+				31BCB7AC221560A000880022 /* FaceDetection */,
 				318D515621E886EF00FE2C48 /* ImageFilterSelector */,
 				318D514F21E869A400FE2C48 /* ImageSelector */,
 				318D515021E86A4500FE2C48 /* ImageSaveDesigner */,
@@ -229,6 +232,14 @@
 				318D515721E8872300FE2C48 /* ImageFilterSelector.swift */,
 			);
 			path = ImageFilterSelector;
+			sourceTree = "<group>";
+		};
+		31BCB7AC221560A000880022 /* FaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				31BCB7AD2215610000880022 /* FaceDetectionConstructor.swift */,
+			);
+			path = FaceDetection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,6 +321,7 @@
 			files = (
 				3104A15E21D4AFB50088B359 /* CornerpointClientProtocol.swift in Sources */,
 				3104A15C21D4AF460088B359 /* CroppableImageView.swift in Sources */,
+				31BCB7AE2215610000880022 /* FaceDetectionConstructor.swift in Sources */,
 				3125CDDD21CA270300668376 /* ImageViewController.swift in Sources */,
 				318D515821E8872300FE2C48 /* ImageFilterSelector.swift in Sources */,
 				318D514E21E784EC00FE2C48 /* ImageSelector.swift in Sources */,

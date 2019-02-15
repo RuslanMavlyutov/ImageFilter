@@ -46,7 +46,11 @@ class CroppableImageView: UIView, CornerpointClientProtocol
 
     @IBOutlet var  cropDelegate: CroppableImageViewDelegateProtocol?
     let dragger: UIPanGestureRecognizer
-    var draggersSticker: [UIImageView : [UIGestureRecognizer]] = [:]
+    var draggersSticker: [UIImageView : [UIGestureRecognizer]] = [:] {
+        didSet {
+            cropDelegate?.haveStickerForImage(draggersSticker.isEmpty)
+        }
+    }
     var cornerpoints =  [CornerpointView]()
 
     var startPoint: CGPoint?
@@ -58,7 +62,6 @@ class CroppableImageView: UIView, CornerpointClientProtocol
             } else {
                 addGestureRecognizer(dragger)
                 removeGestureForSticker()
-                cropDelegate?.haveStickerForImage(!draggersSticker.isEmpty)
             }
         }
     }
@@ -181,7 +184,8 @@ class CroppableImageView: UIView, CornerpointClientProtocol
         superview!.addConstraint(aConstraint)
         cropRect = nil;
 
-        imageToCrop = UIImage(named: "Scampers 6685")
+//        imageToCrop = UIImage(named: "Scampers 6685")
+        imageToCrop = UIImage(named: "face-5")
     }
 
     override func layoutSubviews()

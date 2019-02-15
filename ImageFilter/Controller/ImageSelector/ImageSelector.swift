@@ -39,7 +39,8 @@ final class ImageSelector: UIViewController
             handler:
             {
                 (alert: UIAlertAction)  in
-                if let image = UIImage(named: "Abu_dhabi_skylines_2014") {
+//                if let image = UIImage(named: "Abu_dhabi_skylines_2014") {
+                if let image = UIImage(named: "face-3") {
                     self.delegate?.imageSelector(self, didSelect: image)
                 }
         }
