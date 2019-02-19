@@ -146,7 +146,7 @@ final class ImageViewController: UIViewController
     @IBAction func faceDetectionProcess(_ sender: UIBarButtonItem) {
         switch faceDetectionButton.title {
         case faceButtonTitle.add.rawValue:
-            faceDetection.faceDetect()
+            faceDetection.detectFace()
         case faceButtonTitle.clear.rawValue:
             faceDetection.removeBoxView()
         default:
@@ -165,13 +165,11 @@ final class ImageViewController: UIViewController
 }
 
 extension ImageViewController: FaceDetectionConstructorDelegate {
-    func faceSelector(_ selector: FaceDetectionConstructor,
-                      isSelected isFaceDetect: Bool) {
-        if isFaceDetect {
-            faceDetectionButton.title = faceButtonTitle.add.rawValue
-        } else {
-            faceDetectionButton.title = faceButtonTitle.clear.rawValue
-        }
+    func faceSelectorDidDetectFaces(_ selector: FaceDetectionConstructor) {
+        faceDetectionButton.title = faceButtonTitle.clear.rawValue
+    }
+    func faceSelectorDidNotDetectFaces(_ selector: FaceDetectionConstructor) {
+        faceDetectionButton.title = faceButtonTitle.add.rawValue
     }
 }
 

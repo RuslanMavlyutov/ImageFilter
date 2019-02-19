@@ -2,7 +2,8 @@ import UIKit
 import Vision
 
 protocol FaceDetectionConstructorDelegate: class {
-    func faceSelector(_ selector: FaceDetectionConstructor, isSelected isFaceDetected: Bool)
+    func faceSelectorDidDetectFaces(_ selector: FaceDetectionConstructor)
+    func faceSelectorDidNotDetectFaces(_ selector: FaceDetectionConstructor)
 }
 
 final class FaceDetectionConstructor
@@ -12,7 +13,8 @@ final class FaceDetectionConstructor
     private let workingQueue = DispatchQueue.global(qos: .background)
     private var boxView: [UIView] = [] {
         didSet {
-            self.delegate?.faceSelector(self, isSelected: boxView.isEmpty)
+            boxView.isEmpty ? self.delegate?.faceSelectorDidNotDetectFaces(self) :
+            self.delegate?.faceSelectorDidDetectFaces(self)
         }
     }
 
@@ -23,18 +25,35 @@ final class FaceDetectionConstructor
 
     weak var delegate: FaceDetectionConstructorDelegate?
 
-    func faceDetect() {
-            let faceDetectionRequest: VNDetectFaceRectanglesRequest = {
-                let faceRequest = VNDetectFaceRectanglesRequest(completionHandler: self.handleFaceDetection)
-                return faceRequest
-            }()
-            guard let image = self.cropView.imageToCrop else { return }
-            let handler = VNImageRequestHandler(cgImage: image.cgImage!, options: [:])
+    func detectFace() {
+        let faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: { [weak self] (request, err) in
+            guard let this = self,
+                let observations = request.results as? [VNFaceObservation] else {
+                    print("Unexpected result type from VNFaceObservation")
+                    return
+            }
+            DispatchQueue.main.async {
+                for face in observations {
+                    let view = this.createBoxView(withColor: UIColor.red)
+                    guard let imageRect = this.cropView.imageRect else { return }
+                    view.frame = RectSizeConstructor().transformRect(fromRect: face.boundingBox, imageRect: imageRect)
+                    this.cropView.addSubview(view)
+                    this.boxView.append(view)
+                }
+                if observations.isEmpty {
+                    this.warningMessage()
+                }
+            }
+        })
+        guard let image = self.cropView.imageToCrop else { return }
+        let handler = VNImageRequestHandler(cgImage: image.cgImage!, options: [:])
+        workingQueue.async {
             do {
                 try handler.perform([faceDetectionRequest])
             } catch {
                 print("Failed to perform classification.\n\(error.localizedDescription)")
             }
+        }
     }
 
     func handleFaceDetection(request: VNRequest, error: Error?) {
