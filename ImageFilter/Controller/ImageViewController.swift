@@ -146,9 +146,9 @@ final class ImageViewController: UIViewController
     @IBAction func faceDetectionProcess(_ sender: UIBarButtonItem) {
         switch faceDetectionButton.title {
         case faceButtonTitle.add.rawValue:
-            faceDetection.detectFace()
+            faceDetection.detectFace(for: cropView)
         case faceButtonTitle.clear.rawValue:
-            faceDetection.removeBoxView()
+            faceDetection.removeDetectedFaces()
         default:
             print("Failed title")
             break
@@ -160,7 +160,7 @@ final class ImageViewController: UIViewController
             cropView.removeSticker()
             cropView.draggersSticker.removeAll()
         }
-        faceDetection.removeBoxView()
+        faceDetection.removeDetectedFaces()
     }
 }
 

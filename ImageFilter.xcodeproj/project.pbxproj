@@ -31,6 +31,7 @@
 		318D515521E8826D00FE2C48 /* RectSizeConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515421E8826D00FE2C48 /* RectSizeConstructor.swift */; };
 		318D515821E8872300FE2C48 /* ImageFilterSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318D515721E8872300FE2C48 /* ImageFilterSelector.swift */; };
 		31BCB7AE2215610000880022 /* FaceDetectionConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCB7AD2215610000880022 /* FaceDetectionConstructor.swift */; };
+		31BCB7B3221C01D000880022 /* VisionFaceDetectionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BCB7B2221C01D000880022 /* VisionFaceDetectionSelector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		318D515421E8826D00FE2C48 /* RectSizeConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectSizeConstructor.swift; sourceTree = "<group>"; };
 		318D515721E8872300FE2C48 /* ImageFilterSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFilterSelector.swift; sourceTree = "<group>"; };
 		31BCB7AD2215610000880022 /* FaceDetectionConstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectionConstructor.swift; sourceTree = "<group>"; };
+		31BCB7B2221C01D000880022 /* VisionFaceDetectionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisionFaceDetectionSelector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				3125CDEC21CA288800668376 /* Image */,
 				318D514921D74C8B00FE2C48 /* CroppBuilder */,
 				31706A4721CA50CB00F3816C /* Model */,
+				31BCB7B1221C003C00880022 /* VisionFaceDetection */,
 				31706A4621CA4FDD00F3816C /* Controller */,
 				3125CDEF21CA28F000668376 /* Supporting files */,
 				3125CDDE21CA270300668376 /* Main.storyboard */,
@@ -242,6 +245,14 @@
 			path = FaceDetection;
 			sourceTree = "<group>";
 		};
+		31BCB7B1221C003C00880022 /* VisionFaceDetection */ = {
+			isa = PBXGroup;
+			children = (
+				31BCB7B2221C01D000880022 /* VisionFaceDetectionSelector.swift */,
+			);
+			path = VisionFaceDetection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,6 +339,7 @@
 				3104A16221D4B0090088B359 /* CornerpointView.swift in Sources */,
 				312F06F221FAE5FB0069E882 /* StickerViewController.swift in Sources */,
 				318D515521E8826D00FE2C48 /* RectSizeConstructor.swift in Sources */,
+				31BCB7B3221C01D000880022 /* VisionFaceDetectionSelector.swift in Sources */,
 				3104A16021D4AFD70088B359 /* CroppableImageViewDelegateProtocol.swift in Sources */,
 				318D514C21E5C72A00FE2C48 /* ImageEditor.swift in Sources */,
 				317514F622032A9400F5301B /* StickerEditor.swift in Sources */,

@@ -37,8 +37,8 @@ class CroppableImageView: UIView, CornerpointClientProtocol
     }
 
     let viewForImage: UIView
-    var  imageSize: CGSize?
-    var  imageRect: CGRect?
+    var imageSize: CGSize?
+    var imageRect: CGRect?
     var aspect: CGFloat
     var lastRotation: CGFloat = 0
     var lastScale: CGFloat = 1
